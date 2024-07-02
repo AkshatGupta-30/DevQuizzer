@@ -1,4 +1,9 @@
 import express, { Express, Request, Response } from 'express';
+import DbConnect from './Database';
+import dotenv from "dotenv";
+
+dotenv.config();
+DbConnect();
 
 const app: Express = express()
 
