@@ -2,6 +2,7 @@ import express, { Router, Request, Response } from "express";
 import dotenv from "dotenv";
 import { ICategoryBody } from "../interface/Category";
 import Category from "../models/Category";
+import { UniqueCategoryId } from "../helpers/GenerateId";
 
 dotenv.config();
 
@@ -24,8 +25,7 @@ CategoryRouter.post("/add", async (req: Request, res: Response) => {
 		for (const category of data) {
 			const isCategoryPresent = await Category.findOne({ name: category.name });
 			if (isCategoryPresent) continue;
-			const newLang = new Category(category);
-			newCategories.push(newLang);
+			newCategories.push(new Category({ id: await UniqueCategoryId(), name: category.name, image: category.image }));
 		}
 		const response = await Category.insertMany(newCategories);
 		console.log(newCategories.length + " Data Saved");

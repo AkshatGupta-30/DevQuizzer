@@ -2,7 +2,8 @@ import mongoose, { model, Schema, Document } from "mongoose";
 import IQuestion from "../interface/Question";
 
 const QuestionSchema = new Schema<IQuestion>({
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+    id: { type: String, required: true, unique: true },
+    categoryID: { type: String, required: true },
     ques: { type: String, required: true },
     options: {
         one: { type: String, required: true },

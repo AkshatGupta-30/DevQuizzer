@@ -1,7 +1,8 @@
 import mongoose, {Document} from "mongoose"
 
 interface IQuestion extends Document {
-    category: mongoose.Schema.Types.ObjectId;
+    id: String;
+    categoryID: String;
     ques: String;
     options: {
         one: String;
