@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import "./App.scss";
+import Footer from "./components/Footer/Footer";
 
 const App = React.memo(() => {
 	return (
@@ -10,6 +11,7 @@ const App = React.memo(() => {
 				<Header/>
 				<Routes>
 				</Routes>
+				<Footer/>
 			</BrowserRouter>
 		</div>
 	);
