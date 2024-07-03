@@ -17,5 +17,5 @@ const QuestionSchema = new Schema<IQuestion>({
     linkedIn: { type: String, required: true }
 });
 
-const QuestionModel = model<IQuestion & Document>('Question', QuestionSchema);
-export default QuestionModel;
+export const Question = model<IQuestion & Document>('Question', QuestionSchema);
+export const QuestionRequest = model<IQuestion & Document>('Question', QuestionSchema);
