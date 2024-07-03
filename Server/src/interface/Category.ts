@@ -1,4 +1,9 @@
-import mongoose, {Document} from "mongoose";
+import mongoose, { Document } from "mongoose";
+
+export interface ICategoryBody {
+    name: String;
+    image: String;
+}
 
 interface ICategory extends Document {
     name: String;
