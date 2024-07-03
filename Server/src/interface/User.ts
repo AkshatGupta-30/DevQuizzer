@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, {Document} from "mongoose";
 
-interface User {
-    name: string;
-    email: string;
-    password: string;
+interface IUser extends Document {
+    name: String;
+    email: String;
+    password: String;
     categories: {
         id: mongoose.Schema.Types.ObjectId;
         score: number;
@@ -11,4 +11,4 @@ interface User {
     }[];
 }
 
-export default User
+export default IUser

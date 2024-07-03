@@ -1,19 +1,19 @@
-import mongoose from "mongoose"
+import mongoose, {Document} from "mongoose"
 
-interface Question {
+interface IQuestion extends Document {
     category: mongoose.Schema.Types.ObjectId;
-    ques: string;
+    ques: String;
     options: {
-        one: string;
-        two: string;
-        three: string;
-        four: string;
+        one: String;
+        two: String;
+        three: String;
+        four: String;
     };
     answer: number;
     difficulty: 'easy' | 'medium' | 'hard';
-    explanation: string;
+    explanation: String;
     percentCorrect: number;
-    linkedIn: string;
+    linkedIn: String;
 }
 
-export default Question
+export default IQuestion
