@@ -4,12 +4,14 @@ export interface ICategoryBody {
     id: String;
     name: String;
     image: String;
+    color: String;
 }
 
 interface ICategory extends Document {
     id: String;
     name: String;
     image: String;
+    color: String;
     questions: String[];
 }
 

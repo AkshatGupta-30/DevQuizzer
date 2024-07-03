@@ -6,7 +6,7 @@ import Category from "../../models/Category";
 
 const Card = React.memo((category: Category) => {
 	return (
-		<div id='card' style={{ borderColor: 'cyan' }}>
+		<div id='card' style={{ borderColor: category.color }}>
 			<Img src={category.image} alt={category.name} className='svg' />
 			<label>{category.name}</label>
 			<div className='questions'>{category.questionsCount} Questions</div>
