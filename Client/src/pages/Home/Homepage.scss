@@ -1,0 +1,109 @@
+@import "../../scss/mixins";
+@import "../../scss/variables";
+
+#HomePage {
+	background-color: #fafafa;
+}
+
+main {
+	@include flexcenter;
+	row-gap: 2rem;
+
+	.top,
+	.bottom {
+		padding: 2rem 5rem;
+		background-color: #e599f7;
+		border-bottom: 5px solid #9c36b5;
+
+		label {
+			font: 900 3rem "Josefin Sans", sans-serif;
+			color: #183153;
+		}
+
+		.content {
+			font-size: 1.25rem;
+			text-align: justify;
+			color: #183153;
+		}
+	}
+
+    .quizzes {
+        width: 100%;
+        padding: 2rem 5rem;
+        background-color: #f0f1f3;
+
+        .heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            label {
+                font: 400 3rem "Lilita One", sans-serif;
+                color: #183153;
+            }
+
+            .search {
+                $pad: 14px;
+
+                width: max-content;
+                display: flex;
+                align-items: center;
+                padding: $pad;
+                border-radius: 28px;
+                background: #fbfbfb;
+                transition: box-shadow 0.25s;
+
+                &:focus-within {
+                    box-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.75);
+                }
+
+                .search-icon {
+                    color: rgba(0, 0, 0, 0.5);
+                }
+
+                .search-input {
+                    font-size: 16px;
+                    font-family: 'Lexend', sans-serif;
+                    color: #333333;
+                    margin-left: $pad;
+                    outline: none;
+                    border: none;
+                    background: transparent;
+                    &::placeholder {
+                        color: rgba(0, 0, 0, 0.5);
+                    }
+                }
+            }
+        }
+
+        hr {
+            margin: 0.5rem 0;
+            @include wh(100%, 0.4rem);
+            background-color: #183153;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        .language-cards {
+            display: block;
+            width: 100%;
+        }
+    }
+
+	.bottom {
+		background-color: #63e6be;
+		border-top: 5px solid #0ca678;
+		border-bottom: none;
+
+		label {
+			color: #183153;
+		}
+
+		.content {
+			font-size: 1.25rem;
+			text-align: justify;
+			color: #183153;
+		}
+	}
+}
