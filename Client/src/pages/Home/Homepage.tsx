@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Homepage.scss";
 import LanguageCards from "../../components/LanguageCard/LanguageCard";
+import CategoryContextProvider, { CategoryContext } from "../../context/CategoryContext";
 
-const Homepage = React.memo(() => {
+const Page = React.memo(() => {
+	const { onMounted } = useContext(CategoryContext)
+
+	React.useEffect(() => {onMounted()}, [])
+
 	return (
 		<div id='HomePage'>
 			<main>
@@ -43,6 +48,14 @@ const Homepage = React.memo(() => {
 				</section>
 			</main>
 		</div>
+	)
+})
+
+const Homepage = React.memo(() => {
+	return (
+		<CategoryContextProvider>
+			<Page/>
+		</CategoryContextProvider>
 	);
 });
 

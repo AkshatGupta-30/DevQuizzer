@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LanguageCard.scss";
 import { Img } from "react-image";
+import { CategoryContext } from "../../context/CategoryContext";
+import Category from "../../models/Category";
 
-const Card = React.memo(
-	({ label, ques, image, color }: { label: string; image: string; ques: number; color: string }) => {
-		return (
-			<div id='card' style={{ borderColor: color }}>
-				<Img src={image} alt={label} className='svg' />
-				<label>{label}</label>
-				<div className='questions'>{ques} Questions</div>
-			</div>
-		);
-	}
-);
+const Card = React.memo((category: Category) => {
+	return (
+		<div id='card' style={{ borderColor: 'cyan' }}>
+			<Img src={category.image} alt={category.name} className='svg' />
+			<label>{category.name}</label>
+			<div className='questions'>{category.questionsCount} Questions</div>
+		</div>
+	);
+});
 
 const LanguageCards = React.memo(() => {
+	const { categories } = useContext(CategoryContext);
 	return (
 		<div className='all-langs'>
-			<Card label={"Flutter"} image='https://www.svgrepo.com/show/373604/flutter.svg' ques={5} color='cyan' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
-			<Card label={"React"} image='https://www.svgrepo.com/show/452092/react.svg' ques={5} color='blue' />
+			{categories.map((category: Category) => {
+				return <Card {...category} key={category.id} />;
+			})}
 		</div>
 	);
 });
