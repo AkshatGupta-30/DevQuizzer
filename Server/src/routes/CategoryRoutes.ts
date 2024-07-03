@@ -10,7 +10,7 @@ const CategoryRouter: Router = express.Router();
 
 CategoryRouter.get("/", async (req, res) => {
 	try {
-		const response = await Category.find({}, { id: 1, name: 1, image: 1 });
+		const response = await Category.find({}, { id: 1, name: 1, image: 1, questionsCount: { $size: "$questions" } });
 		res.status(200).json({ results: response });
 	} catch (error) {
 		console.log("error: " + error);
