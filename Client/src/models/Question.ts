@@ -1,4 +1,5 @@
-import { DifficultyType } from "../enum/Types";
+import { QuesReqContextInterface } from "../context/QuestionRequestContext";
+import { DifficultyType, getDifficulty } from "../enum/Types";
 
 class Question {
 	id: string;
@@ -7,7 +8,7 @@ class Question {
 	options: string[];
 	answer: number;
 	difficulty: DifficultyType;
-	explaination: string;
+	explanation: string;
 	percentCorrect: number;
 	linkedIn: string;
 
@@ -28,7 +29,7 @@ class Question {
 		this.options = params.options;
 		this.answer = params.answer;
 		this.difficulty = params.difficulty;
-		this.explaination = params.explaination;
+		this.explanation = params.explaination;
 		this.percentCorrect = params.percentCorrect;
 		this.linkedIn = params.linkedIn;
 	}
@@ -39,7 +40,7 @@ class Question {
 			ques: JSON.stringify(this.ques),
 			options: this.options,
 			answer: this.answer,
-			explanation: this.explaination,
+			explanation: this.explanation,
 			difficulty: this.difficulty.toString(),
 			percentCorrect: this.percentCorrect,
 			linkedIn: this.linkedIn,
@@ -51,12 +52,27 @@ class Question {
 			id: "",
 			answer: 0,
 			categoryId: "",
-            difficulty: DifficultyType.Easy,
-            explaination: "",
-            linkedIn: "",
-            options: [],
-            percentCorrect: 0,
-            ques: ""
+			difficulty: DifficultyType.Easy,
+			explaination: "",
+			linkedIn: "",
+			options: [],
+			percentCorrect: 0,
+			ques: "",
+		});
+	}
+
+	public static addQues(data: QuesReqContextInterface["ques"]): Question {
+		console.log(data);
+		return new Question({
+			id: "",
+			answer: data.answer,
+			categoryId: data.category,
+			difficulty: getDifficulty(data.difficulty),
+			explaination: data.explaination,
+			linkedIn: data.linkedIn,
+			options: [data.option1, data.option2, data.option3, data.option4],
+			percentCorrect: 0,
+			ques: data.question,
 		});
 	}
 }

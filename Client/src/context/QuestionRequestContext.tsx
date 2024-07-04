@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import QuestionApi from "../services/QuestionApi";
+import Question from "../models/Question";
 
 type props = { children?: React.ReactNode };
 
-interface ContextInterface {
+export interface QuesReqContextInterface {
 	ques: {
 		category: string;
 		question: string;
@@ -34,12 +36,12 @@ const defaultState = {
 	},
 	changedValues: () => {},
 	submit: () => {},
-} as ContextInterface;
+} as QuesReqContextInterface;
 
 export const QuestionRequestContext = React.createContext(defaultState);
 
 const QuestionRequestContextProvider = ({ children }: props) => {
-	const [ques, setQ] = useState<ContextInterface["ques"]>(defaultState.ques);
+	const [ques, setQ] = useState<QuesReqContextInterface["ques"]>(defaultState.ques);
 
 	useEffect(() => clearData(), []);
 
@@ -51,13 +53,17 @@ const QuestionRequestContextProvider = ({ children }: props) => {
 	};
 
 	function clearData() {
-		console.log("Cleared")
+		console.log("Cleared");
 		setQ(defaultState.ques);
 	}
 
-	const submit = () => {};
+	const submit = async () => {
+		const responseCode = await QuestionApi.AddQuesRequest(Question.addQues(ques));
+		if (responseCode === 200) clearData();
+		// TODO: Add Toast
+	};
 
-	const contextValue: ContextInterface = { ques, changedValues, submit };
+	const contextValue: QuesReqContextInterface = { ques, changedValues, submit };
 	return <QuestionRequestContext.Provider value={contextValue}>{children}</QuestionRequestContext.Provider>;
 };
 

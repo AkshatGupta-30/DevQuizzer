@@ -37,7 +37,7 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 							Category
 						</option>
 						{categories.map((cat, index) => (
-							<option key={index} value={cat.name}>
+							<option key={index} value={cat.id}>
 								{cat.name}
 							</option>
 						))}
@@ -47,7 +47,6 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 						type='text'
 						autoComplete='off'
 						name='question'
-						// value={ques.question}
 						value={ques.question}
 						onChange={changedValues}
 						required
@@ -57,7 +56,6 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 						type='text'
 						autoComplete='off'
 						name='option1'
-						// value={ques.option1}
 						value={ques.option1}
 						onChange={changedValues}
 						required
@@ -74,11 +72,23 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 					<label>
 						Option 3<span>(Optional)</span>
 					</label>
-					<input type='text' autoComplete='off' name='option3' value={ques.option3} onChange={changedValues} />
+					<input
+						type='text'
+						autoComplete='off'
+						name='option3'
+						value={ques.option3}
+						onChange={changedValues}
+					/>
 					<label>
 						Option 4<span>(Optional)</span>
 					</label>
-					<input type='text' autoComplete='off' name='option4' value={ques.option4} onChange={changedValues} />
+					<input
+						type='text'
+						autoComplete='off'
+						name='option4'
+						value={ques.option4}
+						onChange={changedValues}
+					/>
 					<label>Answer</label>
 					<input
 						type='number'
@@ -95,9 +105,9 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 						<option value='Difficulty' disabled>
 							Difficulty
 						</option>
-						<option value='Easy'>Easy</option>
-						<option value='Medium'>Medium</option>
-						<option value='Hard'>Hard</option>
+						<option value='easy'>Easy</option>
+						<option value='medium'>Medium</option>
+						<option value='hard'>Hard</option>
 					</select>
 					<label>Explaination</label>
 					<input
@@ -109,7 +119,13 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 						required
 					/>
 					<label>LinkedIn Username</label>
-					<input type='text' autoComplete='off' name='linkedIn' value={ques.linkedIn} onChange={changedValues} />
+					<input
+						type='text'
+						autoComplete='off'
+						name='linkedIn'
+						value={ques.linkedIn}
+						onChange={changedValues}
+					/>
 
 					<div className='btn-container'>
 						<button type='button' id='cancel' onClick={closeModal}>
