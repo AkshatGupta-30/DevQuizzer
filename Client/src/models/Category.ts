@@ -3,14 +3,14 @@ class Category {
 	name: string;
 	image: string;
 	color: string;
-	questionsCount: number;
+	questions: string[];
 
-	constructor(params: { id: string; name: string; image: string; color: string; questionsCount: number }) {
+	constructor(params: { id: string; name: string; image: string; color: string; questions: string[] }) {
 		this.id = params.id;
 		this.name = params.name;
 		this.image = params.image;
 		this.color = params.color;
-		this.questionsCount = params.questionsCount;
+		this.questions = params.questions;
 	}
 
 	public static FactoryGetList(data: any): Category[] {
@@ -22,7 +22,7 @@ class Category {
 					name: cat.name,
 					image: cat.image,
 					color: cat.color,
-					questionsCount: cat.questionsCount,
+					questions: cat.questions,
 				})
 			);
 		});

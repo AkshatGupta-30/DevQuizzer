@@ -9,7 +9,7 @@ const Card = React.memo((category: Category) => {
 		<div id='card' style={{ borderColor: category.color }}>
 			<Img src={category.image} alt={category.name} className='svg' />
 			<label>{category.name}</label>
-			<div className='questions'>{category.questionsCount} Questions</div>
+			<div className='questions'>{category.questions.length} Questions</div>
 		</div>
 	);
 });
