@@ -3,6 +3,7 @@ import "./Homepage.scss";
 import LanguageCards from "../../components/LanguageCard/LanguageCard";
 import CategoryContextProvider, { CategoryContext } from "../../context/CategoryContext";
 import QuestionRequestModal from "../../components/QuestionRequestModal/QuestionRequestModal";
+import QuestionRequestContextProvider from "../../context/QuestionRequestContext";
 
 const Page = React.memo(() => {
 	const { onMounted } = useContext(CategoryContext);
@@ -44,7 +45,11 @@ const Page = React.memo(() => {
 					<button id='add-questions' onClick={() => setShowModal(true)}>
 						<i className='fa-solid fa-plus add-icon'></i>Add a Question Request
 					</button>
-					{showModal && <QuestionRequestModal closeModal={closeModal} />}
+					{showModal && (
+						<QuestionRequestContextProvider>
+							<QuestionRequestModal closeModal={closeModal} />
+						</QuestionRequestContextProvider>
+					)}
 				</section>
 				<section className='bottom'>
 					<label>Stay Up-to-Date</label>
