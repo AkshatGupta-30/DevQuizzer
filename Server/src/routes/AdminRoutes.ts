@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from "express";
 import dotenv from "dotenv";
-import { QuestionRequest } from "../models/Question";
+import { FillQuestion, QuestionRequest } from "../models/Question";
 
 dotenv.config();
 
@@ -22,13 +22,12 @@ AdminRouter.post("/", async (req: Request, res: Response) => {
 AdminRouter.post("/ques-req", async (req: Request, res: Response) => {
 	try {
 		const data = req.body;
-		const newReq = new QuestionRequest(data);
+		const newReq = new QuestionRequest(await FillQuestion(data));
 		await newReq.save();
-		console.log(`Request sent successfully`);
 		return res.status(200).json({ status: 200, message: `Request sent successfully` });
 	} catch (err) {
 		console.log(`Error in Sending Request : ${err}`);
-		return res.status(500).json({ error: err });
+		return res.status(500).json({ status: 500, error: err });
 	}
 });
 
