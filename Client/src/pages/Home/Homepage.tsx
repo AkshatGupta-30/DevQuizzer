@@ -2,11 +2,16 @@ import React, { useContext } from "react";
 import "./Homepage.scss";
 import LanguageCards from "../../components/LanguageCard/LanguageCard";
 import CategoryContextProvider, { CategoryContext } from "../../context/CategoryContext";
+import QuestionRequestModal from "../../components/QuestionRequestModal/QuestionRequestModal";
 
 const Page = React.memo(() => {
-	const { onMounted } = useContext(CategoryContext)
+	const { onMounted } = useContext(CategoryContext);
+	const [showModal, setShowModal] = React.useState(false);
+	React.useEffect(() => {
+		onMounted();
+	});
 
-	React.useEffect(() => {onMounted()}, [])
+	const closeModal = () => setShowModal(false);
 
 	return (
 		<div id='HomePage'>
@@ -36,6 +41,10 @@ const Page = React.memo(() => {
 						<LanguageCards />
 					</div>
 					<hr />
+					<button id='add-questions' onClick={() => setShowModal(true)}>
+						<i className='fa-solid fa-plus add-icon'></i>Add a Question Request
+					</button>
+					{showModal && <QuestionRequestModal closeModal={closeModal} />}
 				</section>
 				<section className='bottom'>
 					<label>Stay Up-to-Date</label>
@@ -48,13 +57,13 @@ const Page = React.memo(() => {
 				</section>
 			</main>
 		</div>
-	)
-})
+	);
+});
 
 const Homepage = React.memo(() => {
 	return (
 		<CategoryContextProvider>
-			<Page/>
+			<Page />
 		</CategoryContextProvider>
 	);
 });

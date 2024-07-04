@@ -89,6 +89,24 @@ main {
             display: block;
             width: 100%;
         }
+
+        #add-questions {
+            border: none;
+            outline: none;
+            background: #fdd43b;
+            padding: 1rem 1.5rem;
+            font: 700 2rem "Bebas Neue", sans-serif;
+            border-radius: 20px;
+            margin-top: 1.25rem;
+            cursor: pointer;
+            &:hover {
+                scale: 1.05;
+            }
+
+            .add-icon {
+                margin-right: 0.75rem;
+            }
+        }
     }
 
 	.bottom {
