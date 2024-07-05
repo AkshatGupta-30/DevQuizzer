@@ -18,7 +18,17 @@ QuestionRouter.post("/add", async (req: Request, res: Response) => {
 		const questions = data.questions;
 		const newQuesIds: String[] = [];
 		for (const ques of questions) {
-			const newQues = new Question({ ...ques, categoryID: isCat.id, id: await UniqueQuestionId() });
+			const newQues = new Question({
+				id: await UniqueQuestionId(),
+				categoryID: isCat.id,
+				ques: ques.ques,
+				options: ques.options,
+				answer: ques.answer,
+				difficulty: ques.difficulty,
+				explanation: ques.explanation,
+				percentCorrect: ques.percentCorrect,
+				linkedIn: ques.linkedIn,
+			});
 			await newQues.save();
 			newQuesIds.push(newQues.id);
 		}
