@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import Homepage from "./pages/Home/Homepage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import QuizzPage from "./pages/Quizz/QuizzPage";
 
 const App = React.memo(() => {
 	return (
@@ -15,6 +16,7 @@ const App = React.memo(() => {
 				<Header />
 				<Routes>
 					<Route path='/' element={<Homepage />} />
+					<Route path="/quizz/:lang" element={<QuizzPage/>}/>
 				</Routes>
 				<Footer />
 			</BrowserRouter>

@@ -1,0 +1,29 @@
+@import "../../scss/mixins";
+@import "../../scss/variables";
+
+.quizz {
+	background-color: #f0f1f3;
+	padding: 1rem 2rem;
+	display: flex;
+	align-items: start;
+
+    .title {
+        width: fit-content;
+        background-color: #fab005;
+        padding: 1rem;
+        font: 700 3rem "Kanit", sans-serif;
+        border-radius: 15px;
+    
+        .logo {
+            @include flexcenter(row);
+            background-color: white;
+            border-radius: 15px;
+            padding: 0.25rem 1rem;
+    
+            img {
+                @include wh(3rem, 3rem);
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}

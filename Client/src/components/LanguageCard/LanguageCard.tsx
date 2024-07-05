@@ -3,14 +3,19 @@ import "./LanguageCard.scss";
 import { Img } from "react-image";
 import { CategoryContext } from "../../context/CategoryContext";
 import Category from "../../models/Category";
+import { Link } from "react-router-dom";
 
 const Card = React.memo((category: Category) => {
 	return (
-		<div id='card' style={{ borderColor: category.color }}>
+		<Link
+			to={`/quizz/${category.name}`}
+			state={{ category: category }}
+			className='card'
+			style={{ borderColor: category.color }}>
 			<Img src={category.image} alt={category.name} className='svg' />
 			<label>{category.name}</label>
 			<div className='questions'>{category.questions.length} Questions</div>
-		</div>
+		</Link>
 	);
 });
 

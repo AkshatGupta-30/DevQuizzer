@@ -9,7 +9,7 @@
 	gap: 2rem;
 }
 
-#card {
+.card {
 	@include wh(12rem, fit-content);
 	@include flexcenter;
 	justify-content: space-between;
