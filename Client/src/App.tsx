@@ -4,10 +4,13 @@ import Header from "./components/Header/Header";
 import "./App.scss";
 import Footer from "./components/Footer/Footer";
 import Homepage from "./pages/Home/Homepage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = React.memo(() => {
 	return (
 		<div className='App'>
+			<ToastContainer />
 			<BrowserRouter>
 				<Header />
 				<Routes>

@@ -30,7 +30,7 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 					<FontAwesomeIcon icon={faXmark} className='icon' />
 				</button>
 				<h1>Add Question Request</h1>
-				<form>
+				<div className='form'>
 					<label>Category</label>
 					<select id='Category' name='category' value={ques.category} onChange={changedValues}>
 						<option value='Category' disabled>
@@ -131,11 +131,18 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 						<button type='button' id='cancel' onClick={closeModal}>
 							Cancel
 						</button>
-						<button type='submit' id='send' onClick={submit}>
+						<button
+							type='submit'
+							id='send'
+							onClick={async () => {
+								if (await submit()) {
+									closeModal()
+								}
+							}}>
 							Send
 						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</>,
 		document.querySelector(".modal-portal")!
