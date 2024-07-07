@@ -12,11 +12,11 @@ const Summary = memo(() => {
 
 	const getQuestionClass = (status: QuestionStatus): string => {
 		switch (status) {
-			case QuestionStatus.Answered:
+			case "Answered":
 				return "answered";
-			case QuestionStatus.MarkForReview:
+			case "Mark For Review":
 				return "review";
-			case QuestionStatus.NotAnswered:
+			case "Not Answered":
 				return "not-answered";
 			default:
 				return "not-visited";
@@ -32,22 +32,14 @@ const Summary = memo(() => {
 			<div className='answer-status'>
 				<h2>Answer Status</h2>
 				<div className='legends'>
-					<div className='legend'>
-						<div className='color answered'>{getStatusCount(QuestionStatus.Answered)}</div>
-						<label>Answered</label>
-					</div>
-					<div className='legend'>
-						<div className='color review'>{getStatusCount(QuestionStatus.MarkForReview)}</div>
-						<label>Mark for Review</label>
-					</div>
-					<div className='legend'>
-						<div className='color not-answered'>{getStatusCount(QuestionStatus.NotAnswered)}</div>
-						<label>Not Answered</label>
-					</div>
-					<div className='legend'>
-						<div className='color not-visited'>{getStatusCount(QuestionStatus.NotVisited)}</div>
-						<label>Not Visited</label>
-					</div>
+					{Object.values(QuestionStatus).map((status, index) => (
+						<div className='legend' key={index}>
+							<div className={`color ${getQuestionClass(status)}`}>
+								{getStatusCount(status as QuestionStatus)}
+							</div>
+							<label>{status}</label>
+						</div>
+					))}
 				</div>
 			</div>
 			<div className='question-bank'>
