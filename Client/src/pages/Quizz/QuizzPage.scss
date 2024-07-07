@@ -6,9 +6,11 @@
 	padding: 1rem 2rem;
 	display: flex;
 	align-items: start;
+    flex-direction: column;
+    gap: 2rem;
 
     .title {
-        width: fit-content;
+        width: 100%;
         background-color: #fab005;
         padding: 1rem;
         font: 700 3rem "Kanit", sans-serif;
