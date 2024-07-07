@@ -7,6 +7,8 @@ type props = { children?: React.ReactNode };
 
 interface ContextInterface {
 	categories: Category[];
+	search: string;
+	setSearch: React.Dispatch<React.SetStateAction<string>>;
 	isLoading: boolean;
 	error: string;
 	onMounted: () => void;
@@ -14,6 +16,8 @@ interface ContextInterface {
 
 const defaultState = {
 	categories: [],
+	search: "",
+	setSearch: () => {},
 	isLoading: true,
 	error: "",
 	onMounted: () => {},
@@ -23,6 +27,7 @@ export const CategoryContext = React.createContext(defaultState);
 
 const CategoryContextProvider = ({ children }: props) => {
 	const [categories, setCategories] = React.useState<Category[]>(defaultState.categories);
+	const [search, setSearch] = useState<string>("")
 	const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
 	const [error, setError] = useState<string>(defaultState.error);
 
@@ -34,6 +39,7 @@ const CategoryContextProvider = ({ children }: props) => {
 				const cats = Category.FactoryGetList(res.data);
 				setCategories(cats);
 				setIsLoading(false);
+				setError("")
 			})
 			.catch((err: AxiosError) => {
 				setIsLoading(false);
@@ -41,7 +47,7 @@ const CategoryContextProvider = ({ children }: props) => {
 			});
 	};
 
-	const contextValue: ContextInterface = { categories, isLoading, error, onMounted };
+	const contextValue: ContextInterface = { categories, search, setSearch, isLoading, error, onMounted };
 	return <CategoryContext.Provider value={contextValue}>{children}</CategoryContext.Provider>;
 };
 

@@ -20,12 +20,16 @@ const Card = React.memo((category: Category) => {
 });
 
 const LanguageCards = React.memo(() => {
-	const { categories } = useContext(CategoryContext);
+	const { categories, search } = useContext(CategoryContext);
 	return (
 		<div className='all-langs'>
-			{categories.map((category: Category) => {
-				return <Card {...category} key={category.id} />;
-			})}
+			{categories
+				.filter((category: Category) => {
+					return search.toLowerCase() === "" ? category : category.name.toLowerCase().includes(search);
+				})
+				.map((category: Category) => {
+					return <Card {...category} key={category.id} />;
+				})}
 		</div>
 	);
 });

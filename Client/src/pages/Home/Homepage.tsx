@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import "./Homepage.scss";
 import LanguageCards from "../../components/LanguageCard/LanguageCard";
 import CategoryContextProvider, { CategoryContext } from "../../context/CategoryContext";
@@ -9,8 +9,8 @@ import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Page = React.memo(() => {
-	const { isLoading, error, onMounted } = useContext(CategoryContext);
-	const [showModal, setShowModal] = React.useState(false);
+	const { setSearch, isLoading, error, onMounted } = useContext(CategoryContext);
+	const [showModal, setShowModal] = React.useState<boolean>(false);
 	React.useEffect(() => {
 		onMounted();
 	}, []);
@@ -36,7 +36,14 @@ const Page = React.memo(() => {
 						<form>
 							<div className='search'>
 								<i className='fa-solid fa-magnifying-glass search-icon'></i>
-								<input className='search-input' type='search' placeholder='Search' />
+								<input
+									className='search-input'
+									type='search'
+									placeholder='Search'
+									onChange={(e: ChangeEvent<HTMLInputElement>) => {
+										setSearch(e.target.value);
+									}}
+								/>
 							</div>
 						</form>
 					</div>
@@ -55,11 +62,12 @@ const Page = React.memo(() => {
 							</button>
 						</div>
 					)}
-					{!error && (
+					{!isLoading && !error && (
 						<>
 							<div className='language-cards'>
 								<LanguageCards />
 							</div>
+							<hr />
 							<button id='add-questions' onClick={() => setShowModal(true)}>
 								<i className='fa-solid fa-plus add-icon'></i>Add a Question Request
 							</button>
