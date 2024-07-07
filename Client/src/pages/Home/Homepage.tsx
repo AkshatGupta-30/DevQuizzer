@@ -1,16 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from "react";
 import "./Homepage.scss";
 import LanguageCards from "../../components/LanguageCard/LanguageCard";
 import CategoryContextProvider, { CategoryContext } from "../../context/CategoryContext";
 import QuestionRequestModal from "../../components/QuestionRequestModal/QuestionRequestModal";
 import QuestionRequestContextProvider from "../../context/QuestionRequestContext";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Page = React.memo(() => {
-	const { onMounted } = useContext(CategoryContext);
+	const { isLoading, error, onMounted } = useContext(CategoryContext);
 	const [showModal, setShowModal] = React.useState(false);
 	React.useEffect(() => {
 		onMounted();
-	});
+	}, []);
 
 	const closeModal = () => setShowModal(false);
 
@@ -38,17 +41,34 @@ const Page = React.memo(() => {
 						</form>
 					</div>
 					<hr />
-					<div className='language-cards'>
-						<LanguageCards />
-					</div>
-					<hr />
-					<button id='add-questions' onClick={() => setShowModal(true)}>
-						<i className='fa-solid fa-plus add-icon'></i>Add a Question Request
-					</button>
-					{showModal && (
-						<QuestionRequestContextProvider>
-							<QuestionRequestModal closeModal={closeModal} />
-						</QuestionRequestContextProvider>
+					{isLoading && (
+						<div className='wrapper'>
+							<div className='loading'>Quizz</div>
+						</div>
+					)}
+					{!isLoading && error && (
+						<div className='wrapper'>
+							<div className='error'>{error}</div>
+							<button className='try-again' onClick={() => onMounted()}>
+								<FontAwesomeIcon icon={faArrowsRotate} className='refresh' />
+								Please Try Again
+							</button>
+						</div>
+					)}
+					{!error && (
+						<>
+							<div className='language-cards'>
+								<LanguageCards />
+							</div>
+							<button id='add-questions' onClick={() => setShowModal(true)}>
+								<i className='fa-solid fa-plus add-icon'></i>Add a Question Request
+							</button>
+							{showModal && (
+								<QuestionRequestContextProvider>
+									<QuestionRequestModal closeModal={closeModal} />
+								</QuestionRequestContextProvider>
+							)}
+						</>
 					)}
 				</section>
 				<section className='bottom'>

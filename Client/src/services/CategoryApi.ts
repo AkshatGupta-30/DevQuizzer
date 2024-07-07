@@ -1,15 +1,18 @@
-import axios from "axios"
-import Category from "../models/Category"
+import axios from "axios";
+import Category from "../models/Category";
 
 class CategoryApi {
     public static async Home() {
-        try {
-            const response = await axios.get("http://localhost:3001/category")
-            return Category.FactoryGetList(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+        let response;
+        await axios.get("http://localhost:3001/category")
+            .then(res => {
+                response = Category.FactoryGetList(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        return response
+	}
 }
 
-export default CategoryApi
+export default CategoryApi;
