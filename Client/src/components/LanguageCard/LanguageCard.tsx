@@ -11,7 +11,7 @@ const Card = React.memo((category: Category) => {
 			to={`/quizz/${category.name}`}
 			state={{ category: category }}
 			className='card'
-			style={{ borderColor: category.color }}>
+			style={{ borderColor: category.color, color: category.color }}>
 			<Img src={category.image} alt={category.name} className='svg' />
 			<label>{category.name}</label>
 			<div className='questions'>{category.questions.length} Questions</div>
