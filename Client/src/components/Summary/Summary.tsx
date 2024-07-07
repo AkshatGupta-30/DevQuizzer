@@ -1,8 +1,28 @@
-import { memo } from "react";
-import Category from "../../models/Category";
-import "./Summary.scss"
+import { memo, useContext } from "react";
+import "./Summary.scss";
+import { QuizzContext } from "../../context/QuizContext";
+import { QuestionStatus } from "../../enum/QuestionStatus";
 
-const Summary = memo(({ category }: { category: Category }) => {
+const Summary = memo(() => {
+	const { quesStatus } = useContext(QuizzContext);
+
+	const getStatusCount = (status: QuestionStatus): number => {
+		return quesStatus.filter((s) => s === status).length;
+	};
+
+	const getQuestionClass = (status: QuestionStatus): string => {
+		switch (status) {
+			case QuestionStatus.Answered:
+				return "answered";
+			case QuestionStatus.MarkForReview:
+				return "review";
+			case QuestionStatus.NotAnswered:
+				return "not-answered";
+			default:
+				return "not-visited";
+		}
+	};
+
 	return (
 		<div className='summary'>
 			<div className='timer'>
@@ -13,19 +33,19 @@ const Summary = memo(({ category }: { category: Category }) => {
 				<h2>Answer Status</h2>
 				<div className='legends'>
 					<div className='legend'>
-						<div className='color green'>0</div>
+						<div className='color answered'>{getStatusCount(QuestionStatus.Answered)}</div>
 						<label>Answered</label>
 					</div>
 					<div className='legend'>
-						<div className='color purple'>0</div>
+						<div className='color review'>{getStatusCount(QuestionStatus.MarkForReview)}</div>
 						<label>Mark for Review</label>
 					</div>
 					<div className='legend'>
-						<div className='color yellow'>0</div>
+						<div className='color not-answered'>{getStatusCount(QuestionStatus.NotAnswered)}</div>
 						<label>Not Answered</label>
 					</div>
 					<div className='legend'>
-						<div className='color outline'>0</div>
+						<div className='color not-visited'>{getStatusCount(QuestionStatus.NotVisited)}</div>
 						<label>Not Visited</label>
 					</div>
 				</div>
@@ -33,13 +53,17 @@ const Summary = memo(({ category }: { category: Category }) => {
 			<div className='question-bank'>
 				<label>Question Bank</label>
 				<div className='numbers'>
-					{Array.from({ length: category.questions.length }, (_, i) => (
-						<li key={i + 1}>{i + 1}</li>
-					))}
+					{quesStatus.map((q: QuestionStatus, i: number) => {
+						return (
+							<li key={i} className={getQuestionClass(q)}>
+								{i + 1}
+							</li>
+						);
+					})}
 				</div>
 			</div>
 		</div>
 	);
 });
 
-export default Summary
+export default Summary;

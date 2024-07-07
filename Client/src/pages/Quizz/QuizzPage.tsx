@@ -17,14 +17,17 @@ const Page = memo(() => {
 					{category.name}
 				</div>
 			</div>
-			<Quiz category={category}/>
+			<Quiz />
 		</div>
 	);
 });
 
 const QuizzPage = memo(() => {
+	const location = useLocation();
+	const category: Category = location.state.category;
+
 	return (
-		<QuizzContextProvider>
+		<QuizzContextProvider category={category}>
 			<Page />
 		</QuizzContextProvider>
 	);
