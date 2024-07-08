@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { useLocation } from "react-router-dom";
-import Category from "../../models/Category";
 import "./QuizzPage.scss";
 import QuizzContextProvider from "../../context/QuizContext";
 import Quiz from "../../components/Quiz/Quiz";
+import Category from "../../oops/models/Category";
 
 const Page = memo(() => {
 	const location = useLocation();

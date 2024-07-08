@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import "./LanguageCard.scss";
 import { Img } from "react-image";
 import { CategoryContext } from "../../context/CategoryContext";
-import Category from "../../models/Category";
 import { Link } from "react-router-dom";
+import Category from "../../oops/models/Category";
 
 const Card = React.memo((category: Category) => {
 	return (

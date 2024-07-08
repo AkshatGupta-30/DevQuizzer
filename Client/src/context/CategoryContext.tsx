@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Category from "../models/Category";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import handleAxiosError from "../helpers/AxiosError";
+import Category from "../oops/models/Category";
 
 type props = { children?: React.ReactNode };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import QuestionApi from "../services/QuestionApi";
-import Question from "../models/Question";
+import Question from "../oops/models/Question";
 
 type props = { children?: React.ReactNode };
 

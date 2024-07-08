@@ -1,7 +1,7 @@
 import { memo, useContext } from "react";
 import "./Summary.scss";
 import { QuizzContext } from "../../context/QuizContext";
-import { QuestionStatus } from "../../enum/QuestionStatus";
+import { QuestionStatus } from "../../oops/enum/QuestionStatus";
 
 const Summary = memo(() => {
 	const { quesStatus, bankLength, bankPage, setBankPage } = useContext(QuizzContext);

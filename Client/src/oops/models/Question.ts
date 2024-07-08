@@ -1,4 +1,4 @@
-import { QuesReqContextInterface } from "../context/QuestionRequestContext";
+import { QuesReqContextInterface } from "../../context/QuestionRequestContext";
 import { DifficultyType, getDifficulty } from "../enum/Types";
 
 class Question {

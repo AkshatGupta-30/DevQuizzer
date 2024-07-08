@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { QuestionStatus } from "../enum/QuestionStatus";
-import Category from "../models/Category";
+import { QuestionStatus } from "../oops/enum/QuestionStatus";
+import Category from "../oops/models/Category";
 
 interface ContextInterface {
 	quesStatus: QuestionStatus[];
