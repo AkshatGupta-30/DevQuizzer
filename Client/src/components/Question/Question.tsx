@@ -1,6 +1,7 @@
 import { memo, useContext } from "react";
 import { QuizzContext } from "../../context/QuizContext";
 import "./Question.scss";
+import Timer from "../Timer/Time";
 
 const Question = memo(() => {
 	const { category, startQuiz, setStartQuiz } = useContext(QuizzContext);
@@ -21,6 +22,7 @@ const Question = memo(() => {
 						{category.name}
 					</div>
 				</div>
+				<Timer />
 			</div>
 			{!startQuiz && (
 				<div className='start-quiz'>

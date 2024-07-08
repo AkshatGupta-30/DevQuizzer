@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
 
 @import "../../scss/mixins";
 @import "../../scss/variables";
@@ -65,6 +66,30 @@
 				img {
 					@include wh(3rem, 3rem);
 					margin-right: 0.5rem;
+				}
+			}
+		}
+
+		.timer-wrapper {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			font: 900 1.5rem "Fira Sans Condensed", sans-serif;
+			text-transform: capitalize;
+			padding: 0.5rem 1rem;
+
+			.timer {
+				color: $primary-color;
+			}
+
+			.numbers {
+				display: block;
+				width: 7rem;
+				font: 900 1.25rem "Orbitron", sans-serif;
+
+				span {
+					width: 3rem;
 				}
 			}
 		}
