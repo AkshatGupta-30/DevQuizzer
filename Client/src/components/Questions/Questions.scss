@@ -1,14 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Signika+Negative:wght@300..700&display=swap");
 
+@import "../../scss/mixins";
+@import "../../scss/variables";
+
 .questions {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	padding: 1rem;
+	padding: 1.5rem;
+	gap: 1rem;
 
-    .ques {
-        flex: 1;
-    }
+	.name {
+		width: fit-content;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+
+		.number {
+			font: 400 1.5rem "Lilita One", sans-serif;
+		}
+
+		.ques {
+			font: 600 1.4rem "Reddit Sans Condensed", sans-serif;
+		}
+	}
+
+	.options {
+		display: flex;
+		flex-direction: column;
+		width: max-content;
+        min-width: 45%;
+		gap: 1rem;
+        padding-left: 3rem;
+
+		.option {
+			font: 400 1.25rem "Reddit Sans Condensed", sans-serif;
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+			gap: 0.75rem;
+			border: 2px solid #d0e5f9;
+			background-color: #f0f7fd;
+			padding: 0.75rem 1rem;
+			border-radius: 1rem;
+		}
+	}
 }
