@@ -33,7 +33,7 @@
 		pointer-events: none;
 		display: flex;
 		flex-direction: column;
-		gap: 10rem;
+		gap: 7.5rem;
 		transform: rotate(-45deg);
 		-webkit-transform: rotate(-45deg);
 		-moz-transform: rotate(-45deg);
@@ -84,7 +84,7 @@
 			}
 
 			.numbers {
-				display: block;
+				display: flex;
 				width: 7rem;
 				font: 900 1.25rem "Orbitron", sans-serif;
 

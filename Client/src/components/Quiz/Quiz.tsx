@@ -1,7 +1,7 @@
 import { memo } from "react";
 import Summary from "../Summary/Summary";
-import "./Quiz.scss"
-import Question from "../Question/Question";
+import "./Quiz.scss";
+import QuestionPanel from "../QuestionPanel/QuestionPanel";
 
 const Quiz = memo(() => {
 	return (
@@ -10,7 +10,7 @@ const Quiz = memo(() => {
 			<hr />
 			<div className='content'>
 				<Summary />
-				<Question/>
+				<QuestionPanel />
 			</div>
 			<hr />
 		</div>

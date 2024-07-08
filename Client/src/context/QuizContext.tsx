@@ -30,13 +30,13 @@ export const QuizzContext = createContext(defaultState);
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
 	const [quesStatus, setQuesStatus] = useState<QuestionStatus[]>(defaultState.quesStatus);
 	const [time, setTime] = useState(0);
-	const [startQuiz, setStartQuiz] = useState<boolean>(false);
+	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
 	const bankLength: number = defaultState.bankLength;
 
 	useEffect(() => {
 		setQuesStatus(category.questions.map(() => QuestionStatus.NotVisited));
-		setBankPage(Math.floor(category.questions.length / bankLength));
+		setBankPage(Math.floor(category.questions.length / bankLength) - 1);
 	}, [category]);
 
 	useEffect(() => {
