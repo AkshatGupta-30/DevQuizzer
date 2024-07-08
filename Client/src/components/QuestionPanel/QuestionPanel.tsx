@@ -1,17 +1,20 @@
 import { Fragment, memo, useContext } from "react";
 import { QuizzContext } from "../../context/QuizContext";
 import "./QuestionPanel.scss";
+import Questions from "../Questions/Questions";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Watermark = () => {
 	const { category } = useContext(QuizzContext);
 	return (
 		<div className='watermark-wrapper'>
-			{Array.from({ length: 12 }, (_,i: number) => (
+			{Array.from({ length: 12 }, (_, i: number) => (
 				<Fragment key={category.questions[i]}>
-					<div className='watermark' key={category.questions[i] + 'water'}>
+					<div className='watermark' key={category.questions[i] + "water"}>
 						DevQuizzer DevQuizzer DevQuizzer
 					</div>
-					<div className='watermark' key={category.questions[i] + 'mark'}>
+					<div className='watermark' key={category.questions[i] + "mark"}>
 						&nbsp;&nbsp;&nbsp;DevQuizzer DevQuizzer&nbsp;&nbsp;&nbsp;
 					</div>
 				</Fragment>
@@ -63,14 +66,32 @@ const StartQuiz = memo(() => {
 	);
 });
 
+const FootWrapper = memo(() => {
+	return (
+		<div className='foot-wrapper'>
+			<button className='nav-btns'>
+				<FontAwesomeIcon icon={faChevronLeft} />
+				Previous Question
+			</button>
+			<div className='vr'></div>
+			<button className='nav-btns'>
+				Next Question
+				<FontAwesomeIcon icon={faChevronRight} />
+			</button>
+		</div>
+	);
+});
+
 const QuestionPanel = memo(() => {
 	const { startQuiz } = useContext(QuizzContext);
 
 	return (
-		<div className='question'>
+		<div className='question-panel'>
 			<Watermark />
 			<HeadWrapper />
 			{!startQuiz && <StartQuiz />}
+			{startQuiz && <Questions />}
+			<FootWrapper />
 		</div>
 	);
 });

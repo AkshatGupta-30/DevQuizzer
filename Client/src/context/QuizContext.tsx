@@ -18,7 +18,7 @@ const defaultState = {
 	category: Category.empty(),
 	quesStatus: [],
 	formattedTime: "",
-	startQuiz: false,
+	startQuiz: true,
 	setStartQuiz: () => {},
 	bankLength: 20,
 	bankPage: 0,
@@ -40,7 +40,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	}, [category]);
 
 	useEffect(() => {
-		if (startQuiz) {
+        if (startQuiz) {
 			const startTime = Date.now();
 			let animationFrameId: number;
 
