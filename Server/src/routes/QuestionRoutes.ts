@@ -45,14 +45,11 @@ QuestionRouter.post("/add", async (req: Request, res: Response) => {
 	}
 });
 
-QuestionRouter.get("/:category", async (req: Request, res: Response) => {
+QuestionRouter.get("/questions-by-ids", async (req: Request, res: Response) => {
 	try {
-		const category = req.params.category;
-		const response = await Category.findOne({ name: category }).populate("questions");
-		if (!response) {
-			return res.status(404).json({ status: 404, error: `Category ${category} not found` });
-		}
-		res.status(200).json({ status: 200, results: response.questions });
+		const ids: string[] = req.body;
+		const questions = await Question.find({ id: { $in: ids } });
+		res.status(200).json({ status: 200, results: questions });
 	} catch (error) {
 		console.log("error: " + error);
 		res.status(500).json({ status: 500, message: error });
