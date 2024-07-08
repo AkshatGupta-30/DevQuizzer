@@ -1,4 +1,5 @@
 import { QuesReqContextInterface } from "../../context/QuestionRequestContext";
+import { QuestionStatus } from "../enum/QuestionStatus";
 import { DifficultyType, getDifficulty } from "../enum/Types";
 
 class Question {
@@ -11,6 +12,7 @@ class Question {
 	explanation: string;
 	percentCorrect: number;
 	linkedIn: string;
+	questionStatus: QuestionStatus;
 
 	constructor(params: {
 		id: string;
@@ -32,6 +34,7 @@ class Question {
 		this.explanation = params.explaination;
 		this.percentCorrect = params.percentCorrect;
 		this.linkedIn = params.linkedIn;
+		this.questionStatus = QuestionStatus.NotVisited;
 	}
 
 	public toString(): string {
@@ -47,20 +50,6 @@ class Question {
 		});
 	}
 
-	public static empty(): Question {
-		return new Question({
-			id: "",
-			answer: 0,
-			categoryId: "",
-			difficulty: DifficultyType.Easy,
-			explaination: "",
-			linkedIn: "",
-			options: [],
-			percentCorrect: 0,
-			ques: "",
-		});
-	}
-
 	public static addQues(data: QuesReqContextInterface["ques"]): Question {
 		console.log(data);
 		return new Question({
@@ -73,6 +62,20 @@ class Question {
 			options: [data.option1, data.option2, data.option3, data.option4],
 			percentCorrect: 0,
 			ques: data.question,
+		});
+	}
+
+	public static empty(): Question {
+		return new Question({
+			id: "",
+			answer: 0,
+			categoryId: "",
+			difficulty: DifficultyType.Easy,
+			explaination: "",
+			linkedIn: "",
+			options: [],
+			percentCorrect: 0,
+			ques: "",
 		});
 	}
 }

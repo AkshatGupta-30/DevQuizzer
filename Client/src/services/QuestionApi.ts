@@ -1,5 +1,5 @@
 import axios from "axios";
-import Question from "../models/Question";
+import Question from "../oops/models/Question";
 
 class QuestionApi {
 	public static async AddQuesRequest(question: Question): Promise<number> {

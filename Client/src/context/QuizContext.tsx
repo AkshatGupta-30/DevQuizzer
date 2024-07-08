@@ -2,6 +2,7 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { QuestionStatus } from "../oops/enum/QuestionStatus";
 import Category from "../oops/models/Category";
+import axios from "axios";
 
 interface ContextInterface {
 	category: Category;
@@ -28,6 +29,7 @@ const defaultState = {
 export const QuizzContext = createContext(defaultState);
 
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
+	// const [questions, setQuestions] = useState<Question[]>([]);
 	const [quesStatus, setQuesStatus] = useState<QuestionStatus[]>(defaultState.quesStatus);
 	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
@@ -37,10 +39,25 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	useEffect(() => {
 		setQuesStatus(category.questions.map(() => QuestionStatus.NotVisited));
 		setBankPage(Math.floor(category.questions.length / bankLength) - 1);
+		const fetchData = async () => {
+			axios
+				.get("http://localhost:3001/ques/questions-by-ids", {
+					params: {
+						ids: category.questions,
+					},
+				})
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		};
+		fetchData();
 	}, [category]);
 
 	useEffect(() => {
-        if (startQuiz) {
+		if (startQuiz) {
 			const startTime = Date.now();
 			let animationFrameId: number;
 

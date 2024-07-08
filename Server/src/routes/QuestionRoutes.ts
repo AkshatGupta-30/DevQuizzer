@@ -47,8 +47,8 @@ QuestionRouter.post("/add", async (req: Request, res: Response) => {
 
 QuestionRouter.get("/questions-by-ids", async (req: Request, res: Response) => {
 	try {
-		const ids: string[] = req.body;
-		const questions = await Question.find({ id: { $in: ids } });
+		const ids = req.query.ids;
+		const questions = await Question.find({ id: { $in: ids } }, { _id: 0 });
 		res.status(200).json({ status: 200, results: questions });
 	} catch (error) {
 		console.log("error: " + error);
