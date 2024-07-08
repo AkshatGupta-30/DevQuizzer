@@ -2,12 +2,13 @@ import { memo, useContext } from "react";
 import "./Summary.scss";
 import { QuizzContext } from "../../context/QuizContext";
 import { QuestionStatus } from "../../oops/enum/QuestionStatus";
+import Question from "../../oops/models/Question";
 
 const Summary = memo(() => {
-	const { quesStatus, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
+	const { questions, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
 
 	const getStatusCount = (status: QuestionStatus): number => {
-		return quesStatus.filter((s) => s === status).length;
+		return questions.filter((ques) => ques.questionStatus === status).length;
 	};
 
 	const getQuestionClass = (status: QuestionStatus): string => {
@@ -40,11 +41,11 @@ const Summary = memo(() => {
 			</div>
 			<div className='question-bank'>
 				<label>Question Bank</label>
-				{quesStatus.length <= bankLength ? (
+				{questions.length <= bankLength ? (
 					<div className='numbers'>
-						{quesStatus.map((q: QuestionStatus, i: number) => {
+						{questions.map((ques: Question, i: number) => {
 							return (
-								<li key={i} className={getQuestionClass(q)}>
+								<li key={i} className={getQuestionClass(ques.questionStatus)}>
 									{i + 1}
 								</li>
 							);
@@ -54,9 +55,9 @@ const Summary = memo(() => {
 					<>
 						<div className='numbers blank-page'>
 							{Array.from({ length: bankLength }, (_, i) => {
-								const q = quesStatus[(bankPage - 1) * bankLength + i];
-								return q ? (
-									<li key={i} className={getQuestionClass(q)}>
+								const quesStatus = questions[(bankPage - 1) * bankLength + i].questionStatus;
+								return quesStatus ? (
+									<li key={i} className={getQuestionClass(quesStatus)}>
 										{(bankPage - 1) * bankLength + i + 1}
 									</li>
 								) : (
@@ -73,7 +74,7 @@ const Summary = memo(() => {
 							) : (
 								<div className='vr' style={{ background: "#f81f3f" }}></div>
 							)}
-							{bankPage != Math.ceil(quesStatus.length / bankLength) ? (
+							{bankPage != Math.ceil(questions.length / bankLength) ? (
 								<button className='btn' onClick={() => setBankPage(bankPage + 1)}>
 									<div className='name n-two'> Next </div>
 									<div className='ico next-ico'>➤</div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { QuesReqContextInterface } from "../../context/QuestionRequestContext";
 import { QuestionStatus } from "../enum/QuestionStatus";
 import { DifficultyType, getDifficulty } from "../enum/Types";
@@ -35,6 +36,24 @@ class Question {
 		this.percentCorrect = params.percentCorrect;
 		this.linkedIn = params.linkedIn;
 		this.questionStatus = QuestionStatus.NotVisited;
+	}
+
+	public static factoryList(data: any): Question[] {
+		const questions: Question[] = []
+		data.results.map((res: any) => {
+			questions.push(new Question({
+				answer: res.answer,
+				categoryId: res.categoryID,
+				difficulty: getDifficulty(res.difficulty),
+				explaination: res.explanation,
+				id: res.id,
+				linkedIn: res.linkedIn,
+				options: res.options,
+				percentCorrect: res.percentCorrect,
+				ques: res.ques
+			}))
+		})
+		return questions
 	}
 
 	public toString(): string {

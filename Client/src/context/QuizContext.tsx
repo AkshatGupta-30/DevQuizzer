@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { QuestionStatus } from "../oops/enum/QuestionStatus";
 import Category from "../oops/models/Category";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import Question from "../oops/models/Question";
+import handleAxiosError from "../helpers/AxiosError";
 
 interface ContextInterface {
 	category: Category;
-	quesStatus: QuestionStatus[];
+	questions: Question[];
 	formattedTime: string;
 	startQuiz: boolean;
 	setStartQuiz: Dispatch<SetStateAction<boolean>>;
@@ -17,9 +18,9 @@ interface ContextInterface {
 
 const defaultState = {
 	category: Category.empty(),
-	quesStatus: [],
+	questions: [],
 	formattedTime: "",
-	startQuiz: true,
+	startQuiz: false,
 	setStartQuiz: () => {},
 	bankLength: 20,
 	bankPage: 0,
@@ -29,15 +30,13 @@ const defaultState = {
 export const QuizzContext = createContext(defaultState);
 
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
-	// const [questions, setQuestions] = useState<Question[]>([]);
-	const [quesStatus, setQuesStatus] = useState<QuestionStatus[]>(defaultState.quesStatus);
+	const [questions, setQuestions] = useState<Question[]>([]);
 	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
 	const bankLength: number = defaultState.bankLength;
 
 	useEffect(() => {
-		setQuesStatus(category.questions.map(() => QuestionStatus.NotVisited));
 		setBankPage(Math.floor(category.questions.length / bankLength) - 1);
 		const fetchData = async () => {
 			axios
@@ -47,10 +46,10 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 					},
 				})
 				.then((response) => {
-					console.log(response);
+					setQuestions(Question.factoryList(response.data));
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch((error: AxiosError) => {
+					console.log(handleAxiosError(error));
 				});
 		};
 		fetchData();
@@ -83,7 +82,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 
 	const contextValue: ContextInterface = {
 		category,
-		quesStatus,
+		questions,
 		formattedTime,
 		startQuiz,
 		setStartQuiz,

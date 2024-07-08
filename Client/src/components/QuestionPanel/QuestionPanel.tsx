@@ -5,23 +5,16 @@ import Questions from "../Questions/Questions";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Watermark = () => {
-	const { category } = useContext(QuizzContext);
-	return (
-		<div className='watermark-wrapper'>
-			{Array.from({ length: 12 }, (_, i: number) => (
-				<Fragment key={category.questions[i]}>
-					<div className='watermark' key={category.questions[i] + "water"}>
-						DevQuizzer DevQuizzer DevQuizzer
-					</div>
-					<div className='watermark' key={category.questions[i] + "mark"}>
-						&nbsp;&nbsp;&nbsp;DevQuizzer DevQuizzer&nbsp;&nbsp;&nbsp;
-					</div>
-				</Fragment>
-			))}
-		</div>
-	);
-};
+const Watermark = () => (
+	<div className='watermark-wrapper'>
+		{Array.from({ length: 12 }, (_, i: number) => (
+			<Fragment key={i}>
+				<div className='watermark'>DevQuizzer DevQuizzer DevQuizzer</div>
+				<div className='watermark'>&nbsp;&nbsp;&nbsp;DevQuizzer DevQuizzer&nbsp;&nbsp;&nbsp;</div>
+			</Fragment>
+		))}
+	</div>
+);
 
 const Timer = memo(() => {
 	const { formattedTime } = useContext(QuizzContext);
@@ -52,7 +45,7 @@ const HeadWrapper = memo(() => {
 });
 
 const StartQuiz = memo(() => {
-	const { category, setStartQuiz } = useContext(QuizzContext);
+	const { questions, setStartQuiz } = useContext(QuizzContext);
 
 	return (
 		<div className='start-quiz'>
@@ -60,7 +53,7 @@ const StartQuiz = memo(() => {
 				<button className='start' onClick={() => setStartQuiz(true)}>
 					Start Quiz
 				</button>
-				<div className='no-of-ques'>{category.questions.length} Questions</div>
+				<div className='no-of-ques'>{questions.length} Questions</div>
 			</div>
 		</div>
 	);
