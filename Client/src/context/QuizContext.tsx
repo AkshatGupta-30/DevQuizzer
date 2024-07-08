@@ -4,14 +4,18 @@ import { QuestionStatus } from "../oops/enum/QuestionStatus";
 import Category from "../oops/models/Category";
 
 interface ContextInterface {
-	quesStatus: QuestionStatus[];
+    quesStatus: QuestionStatus[];
+    startQuiz: boolean;
+    setStartQuiz: Dispatch<SetStateAction<boolean>>;
 	bankLength: number;
 	bankPage: number;
 	setBankPage: Dispatch<SetStateAction<number>>;
 }
 
 const defaultState = {
-	quesStatus: [],
+    quesStatus: [],
+    startQuiz: false,
+    setStartQuiz: () => {},
 	bankLength: 20,
 	bankPage: 0,
 	setBankPage: () => {},
@@ -20,7 +24,8 @@ const defaultState = {
 export const QuizzContext = createContext(defaultState);
 
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
-	const [quesStatus, setQuesStatus] = useState<QuestionStatus[]>(defaultState.quesStatus);
+    const [quesStatus, setQuesStatus] = useState<QuestionStatus[]>(defaultState.quesStatus);
+    const [startQuiz, setStartQuiz] = useState<boolean>(false);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
 	const bankLength: number = defaultState.bankLength;
 
@@ -29,7 +34,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		setBankPage(Math.floor(category.questions.length / bankLength));
 	}, [category]);
 
-	const contextValue: ContextInterface = { quesStatus, bankLength, bankPage, setBankPage };
+	const contextValue: ContextInterface = { quesStatus, startQuiz, setStartQuiz, bankLength, bankPage, setBankPage };
 	return <QuizzContext.Provider value={contextValue}>{children}</QuizzContext.Provider>;
 };
 
