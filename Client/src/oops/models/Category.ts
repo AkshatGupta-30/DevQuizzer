@@ -28,6 +28,16 @@ class Category {
 		});
 		return catList;
 	}
+
+	public static empty(): Category {
+		return new Category({
+			color: "",
+			id: "",
+			image: "",
+			name: "",
+			questions: []
+		})
+	}
 }
 
 export default Category;

@@ -8,24 +8,4 @@
 	align-items: start;
     flex-direction: column;
     gap: 2rem;
-
-    .title {
-        width: 100%;
-        background-color: #fab005;
-        padding: 1rem;
-        font: 700 3rem "Kanit", sans-serif;
-        border-radius: 15px;
-    
-        .logo {
-            @include flexcenter(row);
-            background-color: white;
-            border-radius: 15px;
-            padding: 0.25rem 1rem;
-    
-            img {
-                @include wh(3rem, 3rem);
-                margin-right: 0.5rem;
-            }
-        }
-    }
 }

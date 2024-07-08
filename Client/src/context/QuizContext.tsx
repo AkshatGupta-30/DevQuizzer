@@ -4,6 +4,7 @@ import { QuestionStatus } from "../oops/enum/QuestionStatus";
 import Category from "../oops/models/Category";
 
 interface ContextInterface {
+    category: Category;
     quesStatus: QuestionStatus[];
     startQuiz: boolean;
     setStartQuiz: Dispatch<SetStateAction<boolean>>;
@@ -13,6 +14,7 @@ interface ContextInterface {
 }
 
 const defaultState = {
+    category: Category.empty(),
     quesStatus: [],
     startQuiz: false,
     setStartQuiz: () => {},
@@ -34,7 +36,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		setBankPage(Math.floor(category.questions.length / bankLength));
 	}, [category]);
 
-	const contextValue: ContextInterface = { quesStatus, startQuiz, setStartQuiz, bankLength, bankPage, setBankPage };
+	const contextValue: ContextInterface = { category, quesStatus, startQuiz, setStartQuiz, bankLength, bankPage, setBankPage };
 	return <QuizzContext.Provider value={contextValue}>{children}</QuizzContext.Provider>;
 };
 

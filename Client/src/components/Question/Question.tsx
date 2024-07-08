@@ -3,7 +3,7 @@ import { QuizzContext } from "../../context/QuizContext";
 import "./Question.scss";
 
 const Question = memo(() => {
-	const { startQuiz, setStartQuiz } = useContext(QuizzContext);
+	const { category, startQuiz, setStartQuiz } = useContext(QuizzContext);
 
 	return (
 		<div className='question'>
@@ -12,13 +12,24 @@ const Question = memo(() => {
 					<div className='watermark' key={i}>
 						DevQuizzer DevQuizzer DevQuizzer
 					</div>
-                ))}
+				))}
+			</div>
+			<div className='head-wrapper'>
+				<div className='title'>
+					<div className='logo' style={{ color: category.color }}>
+						<img src={category.image} alt='Logo' />
+						{category.name}
+					</div>
+				</div>
 			</div>
 			{!startQuiz && (
 				<div className='start-quiz'>
-					<button className='start' onClick={() => setStartQuiz(true)}>
-						Start Quiz
-					</button>
+					<div className='start-box'>
+						<button className='start' onClick={() => setStartQuiz(true)}>
+							Start Quiz
+						</button>
+						<div className='no-of-ques'>{category.questions.length} Questions</div>
+					</div>
 				</div>
 			)}
 		</div>

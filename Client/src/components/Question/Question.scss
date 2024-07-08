@@ -1,13 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+
+@import "../../scss/mixins";
+@import "../../scss/variables";
 
 .question {
 	display: block;
 	height: inherit;
+	z-index: 0;
 	width: 100%;
 	position: relative;
 	background-color: #fff;
 	border-radius: 12px;
-	padding: 1rem;
+	padding: 4rem 1rem 1rem;
 	box-shadow: 0px 0px 5px 0.5px silver;
 	overflow: hidden;
 
@@ -15,6 +20,7 @@
 		position: absolute;
 		height: 100rem;
 		width: 100rem;
+		z-index: 0;
 		top: -100%;
 		left: 0%;
 		right: 0%;
@@ -30,5 +36,79 @@
 		transform: rotate(-45deg);
 		-webkit-transform: rotate(-45deg);
 		-moz-transform: rotate(-45deg);
+	}
+
+	.head-wrapper {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		background-color: #f7fafd;
+		border: 1px solid #cce4ff;
+		padding: 0.25rem;
+
+		.title {
+			width: fit-content;
+			font: 700 2rem "Kanit", sans-serif;
+
+			.logo {
+				@include flexcenter(row);
+				background-color: white;
+				border-radius: 15px;
+				padding: 0.25rem 1rem;
+
+				img {
+					@include wh(3rem, 3rem);
+					margin-right: 0.5rem;
+				}
+			}
+		}
+	}
+
+	.start-quiz {
+		position: relative;
+		z-index: 0;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		.start-box {
+			border-radius: 12px;
+			height: 15rem;
+			width: 25rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			gap: 0.5rem;
+
+			.start {
+				border: none;
+				outline: none;
+				font: 600 1.5rem "Roboto Slab", serif;
+				padding: 0.75rem 1rem;
+				border-radius: 10px;
+				background-color: #0e3f70;
+				color: white;
+				cursor: pointer;
+
+				&:hover {
+					background-color: #0b3259;
+				}
+			}
+
+			.no-of-ques {
+				font: 900 1rem "Roboto Slab", serif;
+				color: #1a1a2f;
+			}
+		}
 	}
 }
