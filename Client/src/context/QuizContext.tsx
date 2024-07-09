@@ -29,7 +29,7 @@ const defaultState = {
 	startQuiz: false,
 	setStartQuiz: () => {},
 	bankLength: 20,
-	bankPage: 0,
+	bankPage: 1,
 	setBankPage: () => {},
 } as ContextInterface;
 
@@ -44,7 +44,6 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	const bankLength: number = defaultState.bankLength;
 
 	useEffect(() => {
-		setBankPage(Math.floor(category.questions.length / bankLength) - 1);
 		setMyAns((prevAns) => {
 			const updatedAns = [...prevAns];
 			category.questions.map((_, index: number) => {

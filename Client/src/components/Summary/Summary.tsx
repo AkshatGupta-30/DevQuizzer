@@ -40,7 +40,7 @@ const AnswerStatus = () => {
 	);
 };
 
-const Fixedbank = () => {
+const FixedBank = () => {
 	const { questions, currQ } = useContext(QuizzContext);
 
 	return (
@@ -63,15 +63,10 @@ const MoreBank = () => {
 		<>
 			<div className='numbers blank-page'>
 				{Array.from({ length: bankLength }, (_, i) => {
-					// const quesStatus = questions[(bankPage - 1) * bankLength + i].questionStatus;
-					return questions[(bankPage - 1) * bankLength + i].questionStatus ? (
-						<li
-							key={i}
-							className={
-								currQ === i
-									? "current"
-									: getQuestionClass(questions[(bankPage - 1) * bankLength + i].questionStatus)
-							}>
+					const num = (bankPage - 1) * bankLength + i
+					const quesStatus = questions[num]?.questionStatus;
+					return quesStatus ? (
+						<li key={i} className={currQ === num ? "current" : getQuestionClass(quesStatus)}>
 							{(bankPage - 1) * bankLength + i + 1}
 						</li>
 					) : (
@@ -107,7 +102,7 @@ export const QuestionBank = () => {
 	return (
 		<div className='question-bank'>
 			<label>Question Bank</label>
-			{questions.length <= bankLength ? <Fixedbank /> : <MoreBank />}
+			{questions.length <= bankLength ? <FixedBank /> : <MoreBank />}
 		</div>
 	);
 };

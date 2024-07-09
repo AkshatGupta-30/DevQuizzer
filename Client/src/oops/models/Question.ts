@@ -70,7 +70,6 @@ class Question {
 	}
 
 	public static addQues(data: QuesReqContextInterface["ques"]): Question {
-		console.log(data);
 		return new Question({
 			id: "",
 			answer: data.answer,

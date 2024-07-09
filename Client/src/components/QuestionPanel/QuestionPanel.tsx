@@ -93,12 +93,19 @@ const StartQuiz = memo(() => {
 });
 
 const FootWrapper = memo(() => {
-	const { currQ, setCurrQ, questions } = useContext(QuizzContext);
+	const { currQ, setCurrQ, questions, bankPage, setBankPage, bankLength } = useContext(QuizzContext);
 
 	return (
 		<div className='foot-wrapper'>
 			{currQ ? (
-				<button className='nav-btns' onClick={() => setCurrQ(currQ - 1)}>
+				<button
+					className='nav-btns'
+					onClick={() => {
+						if (currQ === (bankPage - 1) * bankLength) {
+							setBankPage(bankPage - 1);
+						}
+						setCurrQ(currQ - 1);
+					}}>
 					<FontAwesomeIcon icon={faChevronLeft} />
 					Previous Question
 				</button>
@@ -107,7 +114,14 @@ const FootWrapper = memo(() => {
 			)}
 			<div className='vr'></div>
 			{currQ != questions.length - 1 && (
-				<button className='nav-btns' onClick={() => setCurrQ(currQ + 1)}>
+				<button
+					className='nav-btns'
+					onClick={() => {
+						if (currQ + 1 === bankPage * bankLength) {
+							setBankPage(bankPage + 1);
+						}
+						setCurrQ(currQ + 1);
+					}}>
 					Next Question
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>

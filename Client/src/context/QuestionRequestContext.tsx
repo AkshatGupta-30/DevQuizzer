@@ -58,7 +58,6 @@ const QuestionRequestContextProvider = ({ children }: props) => {
 	}
 
 	async function submit(): Promise<boolean> {
-		console.log("Submit");
 		const responseCode = await QuestionApi.AddQuesRequest(Question.addQues(ques));
 		if (responseCode === 200) {
 			clearData();
