@@ -1,4 +1,5 @@
-import { Fragment, memo, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Fragment, memo, useContext, useEffect, useMemo, useState } from "react";
 import { QuizzContext } from "../../context/QuizContext";
 import "./QuestionPanel.scss";
 import Questions from "../Questions/Questions";
@@ -17,7 +18,34 @@ const Watermark = () => (
 );
 
 const Timer = memo(() => {
-	const { formattedTime } = useContext(QuizzContext);
+	const { startQuiz } = useContext(QuizzContext);
+	const [time, setTime] = useState<number>(0);
+
+	useEffect(() => {
+		if (startQuiz) {
+			const startTime = Date.now();
+			let animationFrameId: number;
+
+			const updateTimer = () => {
+				setTime(Date.now() - startTime);
+				animationFrameId = requestAnimationFrame(updateTimer);
+			};
+
+			animationFrameId = requestAnimationFrame(updateTimer);
+
+			return () => {
+				cancelAnimationFrame(animationFrameId);
+			};
+		}
+	}, [startQuiz]);
+
+	const formattedTime: string = useMemo(() => {
+		const hours = String(Math.floor((time / 3600000) % 60)).padStart(2, "0");
+		const minutes = String(Math.floor((time / 60000) % 60)).padStart(2, "0");
+		const seconds = String(Math.floor((time / 1000) % 60)).padStart(2, "0");
+		return `${hours}:${minutes}:${seconds}`;
+	}, [time]);
+
 	return (
 		<div className='timer-wrapper'>
 			<div className='timer'>Timer&nbsp;-&nbsp;</div>

@@ -58,6 +58,7 @@ const Fixedbank = () => {
 
 const MoreBank = () => {
 	const { questions, currQ, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
+
 	return (
 		<>
 			<div className='numbers blank-page'>

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Category from "../oops/models/Category";
 import axios, { AxiosError } from "axios";
 import Question from "../oops/models/Question";
@@ -12,7 +12,6 @@ interface ContextInterface {
 	setCurrQ: Dispatch<SetStateAction<number>>;
 	myAns: number[];
 	setMyAns: Dispatch<SetStateAction<number[]>>;
-	formattedTime: string;
 	startQuiz: boolean;
 	setStartQuiz: Dispatch<SetStateAction<boolean>>;
 	bankLength: number;
@@ -27,7 +26,6 @@ const defaultState = {
 	setCurrQ: () => {},
 	myAns: [],
 	setMyAns: () => {},
-	formattedTime: "",
 	startQuiz: false,
 	setStartQuiz: () => {},
 	bankLength: 20,
@@ -41,7 +39,6 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [currQ, setCurrQ] = useState<number>(defaultState.currQ);
 	const [myAns, setMyAns] = useState<number[]>(defaultState.myAns);
-	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
 	const bankLength: number = defaultState.bankLength;
@@ -72,31 +69,6 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		fetchData();
 	}, [category]);
 
-	useEffect(() => {
-		if (startQuiz) {
-			const startTime = Date.now();
-			let animationFrameId: number;
-
-			const updateTimer = () => {
-				setTime(Date.now() - startTime);
-				animationFrameId = requestAnimationFrame(updateTimer);
-			};
-
-			animationFrameId = requestAnimationFrame(updateTimer);
-
-			return () => {
-				cancelAnimationFrame(animationFrameId);
-			};
-		}
-	}, [startQuiz]);
-
-	const formattedTime: string = useMemo(() => {
-		const hours = String(Math.floor((time / 3600000) % 60)).padStart(2, "0");
-		const minutes = String(Math.floor((time / 60000) % 60)).padStart(2, "0");
-		const seconds = String(Math.floor((time / 1000) % 60)).padStart(2, "0");
-		return `${hours}:${minutes}:${seconds}`;
-	}, [time]);
-
 	const contextValue: ContextInterface = {
 		category,
 		questions,
@@ -104,7 +76,6 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		setCurrQ,
 		myAns,
 		setMyAns,
-		formattedTime,
 		startQuiz,
 		setStartQuiz,
 		bankLength,
