@@ -6,39 +6,39 @@ import { QuizzContext } from "../../context/QuizContext";
 import { QuestionStatus } from "../../oops/enum/QuestionStatus";
 
 const Questions = memo(() => {
-	const { currentQuestion, questions, myAns, setMyAns } = useContext(QuizzContext);
+	const { currQ, questions, myAns, setMyAns } = useContext(QuizzContext);
 
 	useEffect(() => {
-		if (questions[currentQuestion].questionStatus === QuestionStatus.NotVisited) {
-			questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+		if (questions[currQ].questionStatus === QuestionStatus.NotVisited) {
+			questions[currQ].questionStatus = QuestionStatus.NotAnswered;
 		}
-	}, [currentQuestion]);
+	}, [currQ]);
 
 	return (
 		<div className='questions'>
 			<div className='details'>
 				<div className='name'>
-					<div className='number'>Q{currentQuestion + 1}.</div>
+					<div className='number'>Q{currQ + 1}.</div>
 					<div
 						className='ques'
 						dangerouslySetInnerHTML={{
-							__html: questions[currentQuestion].ques,
+							__html: questions[currQ].ques,
 						}}></div>
 				</div>
 				<div className='options'>
-					{questions[currentQuestion].options.map((option: string, i: number) => (
+					{questions[currQ].options.map((option: string, i: number) => (
 						<div
 							key={i}
-							className={`option ${myAns[currentQuestion] == i ? "selected" : null}`}
+							className={`option ${myAns[currQ] == i ? "selected" : null}`}
 							onClick={() => {
 								setMyAns((prevAns) => {
 									const updatedAns = [...prevAns];
-									if (updatedAns[currentQuestion] === i) {
-										updatedAns[currentQuestion] = -1;
-										questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+									if (updatedAns[currQ] === i) {
+										updatedAns[currQ] = -1;
+										questions[currQ].questionStatus = QuestionStatus.NotAnswered;
 									} else {
-										updatedAns[currentQuestion] = i;
-										questions[currentQuestion].questionStatus = QuestionStatus.Answered;
+										updatedAns[currQ] = i;
+										questions[currQ].questionStatus = QuestionStatus.Answered;
 									}
 									return updatedAns;
 								});
@@ -53,14 +53,14 @@ const Questions = memo(() => {
 					type='button'
 					className='mark'
 					onClick={() => {
-						if (questions[currentQuestion].questionStatus !== QuestionStatus.MarkForReview) {
-							questions[currentQuestion].questionStatus = QuestionStatus.MarkForReview;
+						if (questions[currQ].questionStatus !== QuestionStatus.MarkForReview) {
+							questions[currQ].questionStatus = QuestionStatus.MarkForReview;
 						} else {
-							questions[currentQuestion].questionStatus =
-								myAns[currentQuestion] != -1 ? QuestionStatus.Answered : QuestionStatus.NotAnswered;
+							questions[currQ].questionStatus =
+								myAns[currQ] != -1 ? QuestionStatus.Answered : QuestionStatus.NotAnswered;
 						}
 					}}>
-					{questions[currentQuestion].questionStatus === QuestionStatus.MarkForReview ? (
+					{questions[currQ].questionStatus === QuestionStatus.MarkForReview ? (
 						<StarFill className='marked extra-icon' />
 					) : (
 						<Star className='not-marked extra-icon' />
@@ -72,10 +72,10 @@ const Questions = memo(() => {
 					type='button'
 					className='clear'
 					onClick={() => {
-						questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+						questions[currQ].questionStatus = QuestionStatus.NotAnswered;
 						setMyAns((prevAns) => {
 							const updatedAns = [...prevAns];
-							updatedAns[currentQuestion] = -1;
+							updatedAns[currQ] = -1;
 							return updatedAns;
 						});
 					}}>

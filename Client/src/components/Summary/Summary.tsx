@@ -5,7 +5,7 @@ import { QuestionStatus } from "../../oops/enum/QuestionStatus";
 import Question from "../../oops/models/Question";
 
 const Summary = memo(() => {
-	const { questions, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
+	const { questions, currQ, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
 
 	const getStatusCount = (status: QuestionStatus): number => {
 		return questions.filter((ques) => ques.questionStatus === status).length;
@@ -13,6 +13,8 @@ const Summary = memo(() => {
 
 	const getQuestionClass = (status: QuestionStatus): string => {
 		switch (status) {
+			case "Current":
+				return "current";
 			case "Answered":
 				return "answered";
 			case "Mark For Review":
@@ -32,7 +34,7 @@ const Summary = memo(() => {
 					{Object.values(QuestionStatus).map((status, index) => (
 						<div className='legend' key={index}>
 							<div className={`color ${getQuestionClass(status)}`}>
-								{getStatusCount(status as QuestionStatus)}
+								{index !== 0 ? getStatusCount(status as QuestionStatus) : null}
 							</div>
 							<label>{status}</label>
 						</div>
@@ -45,7 +47,7 @@ const Summary = memo(() => {
 					<div className='numbers'>
 						{questions.map((ques: Question, i: number) => {
 							return (
-								<li key={i} className={getQuestionClass(ques.questionStatus)}>
+								<li key={i} className={currQ === i ? "current" : getQuestionClass(ques.questionStatus)}>
 									{i + 1}
 								</li>
 							);

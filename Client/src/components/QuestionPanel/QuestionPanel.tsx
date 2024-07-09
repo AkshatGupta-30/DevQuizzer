@@ -45,12 +45,17 @@ const HeadWrapper = memo(() => {
 });
 
 const StartQuiz = memo(() => {
-	const { questions, setStartQuiz } = useContext(QuizzContext);
+	const { questions, setCurrQ, setStartQuiz } = useContext(QuizzContext);
 
 	return (
 		<div className='start-quiz'>
 			<div className='start-box'>
-				<button className='start' onClick={() => setStartQuiz(true)}>
+				<button
+					className='start'
+					onClick={() => {
+						setCurrQ(0);
+						setStartQuiz(true);
+					}}>
 					Start Quiz
 				</button>
 				<div className='no-of-ques'>{questions.length} Questions</div>
@@ -60,12 +65,12 @@ const StartQuiz = memo(() => {
 });
 
 const FootWrapper = memo(() => {
-	const { currentQuestion, setCurrentQuestion, questions } = useContext(QuizzContext);
+	const { currQ, setCurrQ, questions } = useContext(QuizzContext);
 
 	return (
 		<div className='foot-wrapper'>
-			{currentQuestion ? (
-				<button className='nav-btns' onClick={() => setCurrentQuestion(currentQuestion - 1)}>
+			{currQ ? (
+				<button className='nav-btns' onClick={() => setCurrQ(currQ - 1)}>
 					<FontAwesomeIcon icon={faChevronLeft} />
 					Previous Question
 				</button>
@@ -73,8 +78,8 @@ const FootWrapper = memo(() => {
 				<div></div>
 			)}
 			<div className='vr'></div>
-			{currentQuestion != questions.length - 1 && (
-				<button className='nav-btns' onClick={() => setCurrentQuestion(currentQuestion + 1)}>
+			{currQ != questions.length - 1 && (
+				<button className='nav-btns' onClick={() => setCurrQ(currQ + 1)}>
 					Next Question
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>

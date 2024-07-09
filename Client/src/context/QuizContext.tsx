@@ -8,8 +8,8 @@ import handleAxiosError from "../helpers/AxiosError";
 interface ContextInterface {
 	category: Category;
 	questions: Question[];
-	currentQuestion: number;
-	setCurrentQuestion: Dispatch<SetStateAction<number>>;
+	currQ: number;
+	setCurrQ: Dispatch<SetStateAction<number>>;
 	myAns: number[];
 	setMyAns: Dispatch<SetStateAction<number[]>>;
 	formattedTime: string;
@@ -23,8 +23,8 @@ interface ContextInterface {
 const defaultState = {
 	category: Category.empty(),
 	questions: [],
-	currentQuestion: 0,
-	setCurrentQuestion: () => {},
+	currQ: -1,
+	setCurrQ: () => {},
 	myAns: [],
 	setMyAns: () => {},
 	formattedTime: "",
@@ -39,7 +39,7 @@ export const QuizzContext = createContext(defaultState);
 
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
 	const [questions, setQuestions] = useState<Question[]>([]);
-	const [currentQuestion, setCurrentQuestion] = useState<number>(defaultState.currentQuestion);
+	const [currQ, setCurrQ] = useState<number>(defaultState.currQ);
 	const [myAns, setMyAns] = useState<number[]>(defaultState.myAns);
 	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
@@ -100,8 +100,8 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	const contextValue: ContextInterface = {
 		category,
 		questions,
-		currentQuestion,
-		setCurrentQuestion,
+		currQ,
+		setCurrQ,
 		myAns,
 		setMyAns,
 		formattedTime,
