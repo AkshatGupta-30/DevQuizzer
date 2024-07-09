@@ -160,6 +160,7 @@
 	.current {
 		background-color: #ceadf2;
 		border-radius: 12px !important;
+		pointer-events: none;
 	}
 	.answered {
 		background: #9bcf53;
@@ -175,7 +176,6 @@
 		border: 1px solid #111;
 	}
 
-	.current,
 	.answered,
 	.review,
 	.not-answered {

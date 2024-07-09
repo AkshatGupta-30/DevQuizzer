@@ -27,10 +27,14 @@ const AnswerStatus = () => {
 		<div className='answer-status'>
 			<h2>Answer Status</h2>
 			<div className='legends'>
+				<div className='legend'>
+					<div className={`color current`}>{currQ !== -1 ? currQ + 1 : null}</div>
+					<label>Curremt</label>
+				</div>
 				{Object.values(QuestionStatus).map((status, i) => (
 					<div className='legend' key={i}>
-						<div className={`color ${i === 0 ? "current" : getQuestionClass(status)}`}>
-							{i === 0 ? (currQ === -1 ? null : currQ + 1) : getStatusCount(status as QuestionStatus)}
+						<div className={`color ${getQuestionClass(status)}`}>
+							{getStatusCount(status as QuestionStatus)}
 						</div>
 						<label>{status}</label>
 					</div>

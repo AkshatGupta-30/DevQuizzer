@@ -6,13 +6,15 @@ import { QuizzContext } from "../../context/QuizContext";
 import { QuestionStatus } from "../../oops/enum/QuestionStatus";
 
 const Questions = memo(() => {
-	const { currQ, questions, myAns, setMyAns } = useContext(QuizzContext);
+	const { currQ, questions, setQuestions, myAns, setMyAns } = useContext(QuizzContext);
 
 	useEffect(() => {
 		if (questions[currQ].questionStatus === QuestionStatus.NotVisited) {
-			questions[currQ].questionStatus = QuestionStatus.NotAnswered;
+			const updatedQuestions = [...questions];
+			updatedQuestions[currQ].questionStatus = QuestionStatus.NotAnswered;
+			setQuestions(updatedQuestions);
 		}
-	}, [currQ]);
+	}, [currQ, questions]);
 
 	return (
 		<div className='questions'>
@@ -53,12 +55,14 @@ const Questions = memo(() => {
 					type='button'
 					className='mark'
 					onClick={() => {
-						if (questions[currQ].questionStatus !== QuestionStatus.MarkForReview) {
-							questions[currQ].questionStatus = QuestionStatus.MarkForReview;
+						const updatedQuestions = [...questions];
+						if (updatedQuestions[currQ].questionStatus !== QuestionStatus.MarkForReview) {
+							updatedQuestions[currQ].questionStatus = QuestionStatus.MarkForReview;
 						} else {
-							questions[currQ].questionStatus =
-								myAns[currQ] != -1 ? QuestionStatus.Answered : QuestionStatus.NotAnswered;
+							updatedQuestions[currQ].questionStatus =
+								myAns[currQ] !== -1 ? QuestionStatus.Answered : QuestionStatus.NotAnswered;
 						}
+						setQuestions(updatedQuestions);
 					}}>
 					{questions[currQ].questionStatus === QuestionStatus.MarkForReview ? (
 						<StarFill className='marked extra-icon' />
@@ -66,7 +70,10 @@ const Questions = memo(() => {
 						<Star className='not-marked extra-icon' />
 					)}
 
-					<span>Mark for Review</span>
+					<span>
+						{questions[currQ].questionStatus === QuestionStatus.MarkForReview ? "Marked" : "Mark"} for
+						Review
+					</span>
 				</button>
 				<button
 					type='button'

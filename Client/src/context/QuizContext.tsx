@@ -7,7 +7,8 @@ import handleAxiosError from "../helpers/AxiosError";
 
 interface ContextInterface {
 	category: Category;
-	questions: Question[];
+    questions: Question[];
+    setQuestions: Dispatch<SetStateAction<Question[]>>;
 	currQ: number;
 	setCurrQ: Dispatch<SetStateAction<number>>;
 	myAns: number[];
@@ -21,7 +22,8 @@ interface ContextInterface {
 
 const defaultState = {
 	category: Category.empty(),
-	questions: [],
+    questions: [],
+    setQuestions: () => {},
 	currQ: -1,
 	setCurrQ: () => {},
 	myAns: [],
@@ -70,7 +72,8 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 
 	const contextValue: ContextInterface = {
 		category,
-		questions,
+        questions,
+        setQuestions,
 		currQ,
 		setCurrQ,
 		myAns,
