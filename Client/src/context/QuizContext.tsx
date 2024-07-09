@@ -8,6 +8,8 @@ import handleAxiosError from "../helpers/AxiosError";
 interface ContextInterface {
 	category: Category;
 	questions: Question[];
+	currentQuestion: number;
+	setCurrentQuestion: Dispatch<SetStateAction<number>>;
 	formattedTime: string;
 	startQuiz: boolean;
 	setStartQuiz: Dispatch<SetStateAction<boolean>>;
@@ -19,6 +21,8 @@ interface ContextInterface {
 const defaultState = {
 	category: Category.empty(),
 	questions: [],
+	currentQuestion: 0,
+	setCurrentQuestion: () => {},
 	formattedTime: "",
 	startQuiz: false,
 	setStartQuiz: () => {},
@@ -31,6 +35,7 @@ export const QuizzContext = createContext(defaultState);
 
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
 	const [questions, setQuestions] = useState<Question[]>([]);
+	const [currentQuestion, setCurrentQuestion] = useState<number>(defaultState.currentQuestion);
 	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
@@ -83,6 +88,8 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	const contextValue: ContextInterface = {
 		category,
 		questions,
+		currentQuestion,
+		setCurrentQuestion,
 		formattedTime,
 		startQuiz,
 		setStartQuiz,

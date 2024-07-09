@@ -60,17 +60,25 @@ const StartQuiz = memo(() => {
 });
 
 const FootWrapper = memo(() => {
+	const { currentQuestion, setCurrentQuestion, questions } = useContext(QuizzContext);
+
 	return (
 		<div className='foot-wrapper'>
-			<button className='nav-btns'>
-				<FontAwesomeIcon icon={faChevronLeft} />
-				Previous Question
-			</button>
+			{currentQuestion ? (
+				<button className='nav-btns' onClick={() => setCurrentQuestion(currentQuestion - 1)}>
+					<FontAwesomeIcon icon={faChevronLeft} />
+					Previous Question
+				</button>
+			) : (
+				<div></div>
+			)}
 			<div className='vr'></div>
-			<button className='nav-btns'>
-				Next Question
-				<FontAwesomeIcon icon={faChevronRight} />
-			</button>
+			{currentQuestion != questions.length - 1 && (
+				<button className='nav-btns' onClick={() => setCurrentQuestion(currentQuestion + 1)}>
+					Next Question
+					<FontAwesomeIcon icon={faChevronRight} />
+				</button>
+			)}
 		</div>
 	);
 });
@@ -84,7 +92,8 @@ const QuestionPanel = memo(() => {
 			<HeadWrapper />
 			{!startQuiz && <StartQuiz />}
 			{startQuiz && <Questions />}
-			<FootWrapper />
+			{startQuiz && <FootWrapper />}
+			{/* <FootWrapper /> */}
 		</div>
 	);
 });

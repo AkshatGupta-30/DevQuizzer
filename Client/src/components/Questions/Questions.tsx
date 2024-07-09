@@ -1,24 +1,26 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 import { FlagFill, Star, StarFill, XCircleFill } from "react-bootstrap-icons";
 import "./Questions.scss";
+import { QuizzContext } from "../../context/QuizContext";
 
 const Questions = memo(() => {
+	const { currentQuestion, questions } = useContext(QuizzContext);
+
 	return (
 		<div className='questions'>
 			<div className='details'>
 				<div className='name'>
-					<div className='number'>Q1.</div>
+					<div className='number'>Q{currentQuestion + 1}.</div>
 					<div
 						className='ques'
 						dangerouslySetInnerHTML={{
-							__html: "What is the output of the following code?\n\nx = 5\ny = 10\nprint(x + y)",
+							__html: questions[currentQuestion].ques,
 						}}></div>
 				</div>
 				<div className='options'>
-					<div className='option'>15</div>
-					<div className='option'>10</div>
-					<div className='option'>5</div>
-					<div className='option'>0</div>
+					{questions[currentQuestion].options.map((option: string) => (
+						<div className='option'>{option}</div>
+					))}
 				</div>
 			</div>
 			<div className='extra-btns'>
