@@ -18,10 +18,19 @@ function getQuestionClass(status: QuestionStatus): string {
 }
 
 const AnswerStatus = () => {
-	const { questions, currQ } = useContext(QuizzContext);
+	const { startQuiz, questions, currQ, setCurrQ } = useContext(QuizzContext);
 
 	const getStatusCount = (status: QuestionStatus): number =>
 		questions.filter((ques) => ques.questionStatus === status).length;
+
+	const getNextLegendStatus = (status: QuestionStatus): number => {
+		let i = currQ + 1 === questions.length ? 0 : currQ + 1;
+		for (let len: number = questions.length; len > 0; i++, len--) {
+			if (i === questions.length) i = 0;
+			if (questions[i].questionStatus === status) return i;
+		}
+		return -1;
+	};
 
 	return (
 		<div className='answer-status'>
@@ -33,7 +42,18 @@ const AnswerStatus = () => {
 				</div>
 				{Object.values(QuestionStatus).map((status, i) => (
 					<div className='legend' key={i}>
-						<div className={`color ${getQuestionClass(status)}`}>
+						<div
+							className={`color ${getQuestionClass(status)}`}
+							style={{
+								cursor: startQuiz ? "pointer" : "none",
+								pointerEvents: startQuiz ? "all" : "none",
+							}}
+							onClick={() => {
+								const firstFind: number = getNextLegendStatus(status);
+								if (firstFind !== -1) {
+									setCurrQ(firstFind);
+								}
+							}}>
 							{getStatusCount(status as QuestionStatus)}
 						</div>
 						<label>{status}</label>
