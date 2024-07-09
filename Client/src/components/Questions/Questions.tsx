@@ -1,10 +1,18 @@
-import { memo, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { memo, useContext, useEffect } from "react";
 import { FlagFill, Star, StarFill, XCircleFill } from "react-bootstrap-icons";
 import "./Questions.scss";
 import { QuizzContext } from "../../context/QuizContext";
+import { QuestionStatus } from "../../oops/enum/QuestionStatus";
 
 const Questions = memo(() => {
-	const { currentQuestion, questions } = useContext(QuizzContext);
+	const { currentQuestion, questions, myAns, setMyAns } = useContext(QuizzContext);
+
+	useEffect(() => {
+		if (questions[currentQuestion].questionStatus === QuestionStatus.NotVisited) {
+			questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+		}
+	}, [currentQuestion]);
 
 	return (
 		<div className='questions'>
@@ -18,8 +26,25 @@ const Questions = memo(() => {
 						}}></div>
 				</div>
 				<div className='options'>
-					{questions[currentQuestion].options.map((option: string) => (
-						<div className='option'>{option}</div>
+					{questions[currentQuestion].options.map((option: string, i: number) => (
+						<div
+							key={i}
+							className={`option ${myAns[currentQuestion] == i ? "selected" : null}`}
+							onClick={() => {
+								setMyAns((prevAns) => {
+									const updatedAns = [...prevAns];
+									if (updatedAns[currentQuestion] === i) {
+										updatedAns[currentQuestion] = -1;
+										questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+									} else {
+										updatedAns[currentQuestion] = i;
+										questions[currentQuestion].questionStatus = QuestionStatus.Answered;
+									}
+									return updatedAns;
+								});
+							}}>
+							{option}
+						</div>
 					))}
 				</div>
 			</div>

@@ -10,6 +10,8 @@ interface ContextInterface {
 	questions: Question[];
 	currentQuestion: number;
 	setCurrentQuestion: Dispatch<SetStateAction<number>>;
+	myAns: number[];
+	setMyAns: Dispatch<SetStateAction<number[]>>;
 	formattedTime: string;
 	startQuiz: boolean;
 	setStartQuiz: Dispatch<SetStateAction<boolean>>;
@@ -23,6 +25,8 @@ const defaultState = {
 	questions: [],
 	currentQuestion: 0,
 	setCurrentQuestion: () => {},
+	myAns: [],
+	setMyAns: () => {},
 	formattedTime: "",
 	startQuiz: false,
 	setStartQuiz: () => {},
@@ -36,6 +40,7 @@ export const QuizzContext = createContext(defaultState);
 const QuizzContextProvider = ({ category, children }: { category: Category; children?: React.ReactNode }) => {
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [currentQuestion, setCurrentQuestion] = useState<number>(defaultState.currentQuestion);
+	const [myAns, setMyAns] = useState<number[]>(defaultState.myAns);
 	const [time, setTime] = useState(0);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
@@ -43,6 +48,13 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 
 	useEffect(() => {
 		setBankPage(Math.floor(category.questions.length / bankLength) - 1);
+		setMyAns((prevAns) => {
+			const updatedAns = [...prevAns];
+			category.questions.map((_, index: number) => {
+				updatedAns[index] = -1;
+			});
+			return updatedAns;
+		});
 		const fetchData = async () => {
 			axios
 				.get("http://localhost:3001/ques/questions-by-ids", {
@@ -90,6 +102,8 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		questions,
 		currentQuestion,
 		setCurrentQuestion,
+		myAns,
+		setMyAns,
 		formattedTime,
 		startQuiz,
 		setStartQuiz,
