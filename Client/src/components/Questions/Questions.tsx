@@ -49,16 +49,41 @@ const Questions = memo(() => {
 				</div>
 			</div>
 			<div className='extra-btns'>
-				<button type='button' className='mark'>
-					<Star className='not-marked extra-icon' />
-					<StarFill className='marked extra-icon' />
+				<button
+					type='button'
+					className='mark'
+					onClick={() => {
+						if (questions[currentQuestion].questionStatus !== QuestionStatus.MarkForReview) {
+							questions[currentQuestion].questionStatus = QuestionStatus.MarkForReview;
+						} else {
+							questions[currentQuestion].questionStatus =
+								myAns[currentQuestion] != -1 ? QuestionStatus.Answered : QuestionStatus.NotAnswered;
+						}
+					}}>
+					{questions[currentQuestion].questionStatus === QuestionStatus.MarkForReview ? (
+						<StarFill className='marked extra-icon' />
+					) : (
+						<Star className='not-marked extra-icon' />
+					)}
+
 					<span>Mark for Review</span>
 				</button>
-				<button type='button' className='clear'>
+				<button
+					type='button'
+					className='clear'
+					onClick={() => {
+						questions[currentQuestion].questionStatus = QuestionStatus.NotAnswered;
+						setMyAns((prevAns) => {
+							const updatedAns = [...prevAns];
+							updatedAns[currentQuestion] = -1;
+							return updatedAns;
+						});
+					}}>
 					<XCircleFill />
 					<span>Clear</span>
 				</button>
 				<button type='button' className='report'>
+					{/* //TODO: Implement dialog box */}
 					<FlagFill />
 					<span>Report</span>
 				</button>
