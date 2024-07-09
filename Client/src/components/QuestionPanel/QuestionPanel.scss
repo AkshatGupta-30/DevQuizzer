@@ -38,6 +38,7 @@
 		transform: rotate(-45deg);
 		-webkit-transform: rotate(-45deg);
 		-moz-transform: rotate(-45deg);
+		pointer-events: none;
 	}
 
 	.head-wrapper {
@@ -50,6 +51,7 @@
 		background-color: #f7fafd;
 		border: 1px solid #cce4ff;
 		padding: 0.25rem;
+		pointer-events: none;
 
 		.title {
 			width: fit-content;

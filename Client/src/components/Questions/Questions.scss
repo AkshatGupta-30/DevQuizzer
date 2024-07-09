@@ -26,6 +26,7 @@
 			align-items: center;
 			justify-content: center;
 			gap: 0.75rem;
+			pointer-events: none;
 
 			.number {
 				font: 400 1.5rem "Lilita One", sans-serif;
@@ -44,21 +45,24 @@
 			max-width: 70%;
 			gap: 1rem;
 			padding-left: 3rem;
+			position: relative;
 
 			.option {
 				font: 400 1.25rem "Reddit Sans Condensed", sans-serif;
+				min-height: 3.3rem;
 				display: flex;
 				align-items: center;
 				flex-direction: row;
 				gap: 0.75rem;
-				border: 2px solid #d0e5f9;
-				background-color: #f1f1f1;
+				border: 1px solid #b9d9eb;
+				background-color: #fafafa;
 				padding: 0.75rem 1rem;
 				border-radius: 1rem;
 				cursor: pointer;
 
 				&:hover {
-					background-color: #f0f7fd;
+					border-color: #80a3ff;
+					background-color: #f8f7ff;
 				}
 
 				&:active {
@@ -66,8 +70,9 @@
 				}
 
 				&.selected {
-					border: 2px solid #0054e9;
-					background-color: #b7cee4;
+					border-color: #8870ff;
+					border-width: 3px;
+					background-color: #e7eeff;
 				}
 			}
 		}

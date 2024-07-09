@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, memo, useContext, useEffect, useState } from "react";
 import {CategoryContext} from "../../context/CategoryContext";
-import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsRotate, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LanguageCards from "../LanguageCard/LanguageCard";
 import QuestionRequestContextProvider from "../../context/QuestionRequestContext";
@@ -23,7 +23,7 @@ const CategorySection = memo(() => {
 				<label>Computer Skills!</label>
 				<form>
 					<div className='search'>
-						<i className='fa-solid fa-magnifying-glass search-icon'></i>
+						<FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
 						<input
 							className='search-input'
 							type='search'

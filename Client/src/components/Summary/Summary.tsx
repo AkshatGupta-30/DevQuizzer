@@ -8,7 +8,7 @@ function getQuestionClass(status: QuestionStatus): string {
 	switch (status) {
 		case "Answered":
 			return "answered";
-		case "Mark For Review":
+		case "Marked For Review":
 			return "review";
 		case "Not Answered":
 			return "not-answered";
@@ -38,7 +38,7 @@ const AnswerStatus = () => {
 			<div className='legends'>
 				<div className='legend'>
 					<div className={`color current`}>{currQ !== -1 ? currQ + 1 : null}</div>
-					<label>Curremt</label>
+					<label>Current</label>
 				</div>
 				{Object.values(QuestionStatus).map((status, i) => (
 					<div className='legend' key={i}>

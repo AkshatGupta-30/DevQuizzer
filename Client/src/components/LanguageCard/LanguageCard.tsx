@@ -14,7 +14,7 @@ const Card = React.memo((category: Category) => {
 			style={{ borderColor: category.color, color: category.color }}>
 			<Img src={category.image} alt={category.name} className='svg' />
 			<label>{category.name}</label>
-			<div className='questions'>{category.questions.length} Questions</div>
+			<div className='question-length'>{category.questions.length} Questions</div>
 		</Link>
 	);
 });
