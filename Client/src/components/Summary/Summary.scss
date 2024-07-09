@@ -10,6 +10,12 @@
 	flex-direction: column;
 	gap: 1rem;
 
+	h2 {
+		font: 900 1.5rem "Fira Sans Condensed", sans-serif;
+		text-transform: uppercase;
+		color: $primary-color;
+	}
+
 	.answer-status {
 		background: white;
 		display: flex;
@@ -17,17 +23,13 @@
 		border-radius: 12px;
 		padding: 1rem;
 		box-shadow: 0px 0px 5px 0.5px silver;
-
-		h2 {
-			font: 900 1.5rem "Fira Sans Condensed", sans-serif;
-			color: $primary-color;
-		}
+		pointer-events: none;
 
 		.legends {
 			display: flex;
 			flex-direction: column;
 			gap: 0.75rem;
-			padding: 0.25rem 1rem;
+			padding: 0.5rem 1rem;
 
 			.legend {
 				display: flex;
@@ -58,12 +60,6 @@
 		border-radius: 12px;
 		padding: 1rem;
 		box-shadow: 0px 0px 5px 0.5px silver;
-
-		label {
-			font: 900 1.5rem "Fira Sans Condensed", sans-serif;
-			text-transform: uppercase;
-			color: $primary-color;
-		}
 
 		.numbers {
 			display: grid;
@@ -165,7 +161,6 @@
 		background-color: #ceadf2;
 		border-radius: 12px !important;
 	}
-
 	.answered {
 		background: #9bcf53;
 	}
@@ -178,5 +173,16 @@
 	.not-visited {
 		background: rgba($color: #000000, $alpha: 0.1);
 		border: 1px solid #111;
+	}
+
+	.current,
+	.answered,
+	.review,
+	.not-answered {
+		cursor: pointer;
+
+		&:active {
+			scale: 0.95;
+		}
 	}
 }

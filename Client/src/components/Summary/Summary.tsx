@@ -41,13 +41,20 @@ const AnswerStatus = () => {
 };
 
 const FixedBank = () => {
-	const { questions, currQ } = useContext(QuizzContext);
+	const { questions, currQ, setCurrQ } = useContext(QuizzContext);
 
 	return (
 		<div className='numbers'>
 			{questions.map((ques: Question, i: number) => {
 				return (
-					<li key={i} className={currQ === i ? "current" : getQuestionClass(ques.questionStatus)}>
+					<li
+						key={i}
+						className={currQ === i ? "current" : getQuestionClass(ques.questionStatus)}
+						onClick={() => {
+							if (ques.questionStatus !== QuestionStatus.NotVisited) {
+								setCurrQ(i);
+							}
+						}}>
 						{i + 1}
 					</li>
 				);
@@ -57,16 +64,23 @@ const FixedBank = () => {
 };
 
 const MoreBank = () => {
-	const { questions, currQ, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
+	const { questions, currQ, setCurrQ, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
 
 	return (
 		<>
 			<div className='numbers blank-page'>
 				{Array.from({ length: bankLength }, (_, i) => {
-					const num = (bankPage - 1) * bankLength + i
+					const num = (bankPage - 1) * bankLength + i;
 					const quesStatus = questions[num]?.questionStatus;
 					return quesStatus ? (
-						<li key={i} className={currQ === num ? "current" : getQuestionClass(quesStatus)}>
+						<li
+							key={i}
+							className={currQ === num ? "current" : getQuestionClass(quesStatus)}
+							onClick={() => {
+								if (quesStatus !== QuestionStatus.NotVisited) {
+									setCurrQ((bankPage - 1) * bankLength + i);
+								}
+							}}>
 							{(bankPage - 1) * bankLength + i + 1}
 						</li>
 					) : (
@@ -101,7 +115,7 @@ export const QuestionBank = () => {
 
 	return (
 		<div className='question-bank'>
-			<label>Question Bank</label>
+			<h2>Question Bank</h2>
 			{questions.length <= bankLength ? <FixedBank /> : <MoreBank />}
 		</div>
 	);
