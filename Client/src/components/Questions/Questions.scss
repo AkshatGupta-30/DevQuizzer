@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Signika+Negative:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Pridi:wght@200;300;400;500;600;700&display=swap');
 
 @import "../../scss/mixins";
 @import "../../scss/variables";
@@ -20,20 +22,50 @@
 		gap: 1.75rem;
 
 		.name {
-			width: fit-content;
+			width: 100%;
 			display: flex;
 			flex-direction: row;
 			align-items: start;
 			justify-content: center;
 			gap: 0.75rem;
-			pointer-events: none;
+			width: 100%;
 
 			.number {
 				font: 400 1.5rem "Lilita One", sans-serif;
+				pointer-events: none;
 			}
 
 			.ques {
 				font: 600 1.4rem "Reddit Sans Condensed", sans-serif;
+				pointer-events: none;
+				width: 100%;
+			}
+
+			.linkedin-id {
+				min-width: 7rem;
+				display: flex;
+				flex-direction: column;
+				align-items: end;
+
+				.contri {
+					font: 600 1rem "Caudex", sans-serif;
+					pointer-events: none;
+				}
+
+				.id {
+					font: 600 1.4rem "Pridi", sans-serif;
+					text-decoration: none;
+					cursor: pointer;
+
+					&:hover {
+						text-decoration: underline;
+					}
+
+					&:visited,
+					&:not(:visited) {
+						color: blue;
+					}
+				}
 			}
 		}
 

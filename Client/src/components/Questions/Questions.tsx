@@ -4,6 +4,7 @@ import { FlagFill, Star, StarFill, XCircleFill } from "react-bootstrap-icons";
 import "./Questions.scss";
 import { QuizzContext } from "../../context/QuizContext";
 import { QuestionStatus } from "../../oops/enum/QuestionStatus";
+import { Link } from "react-router-dom";
 
 const Questions = memo(() => {
 	const { currQ, questions, setQuestions, myAns, setMyAns } = useContext(QuizzContext);
@@ -24,6 +25,10 @@ const Questions = memo(() => {
 					<div className='ques' style={{ whiteSpace: "pre" }}>
 						{questions[currQ].ques}
 					</div>
+					{questions[currQ].linkedIn !== "dummy" && <div className='linkedin-id'>
+						<div className="contri">Contributed By</div>
+						<Link to={""} className="id">@{questions[currQ].linkedIn}</Link>
+					</div>}
 				</div>
 				<div className='options'>
 					{questions[currQ].options.map((option: string, i: number) => (
