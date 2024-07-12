@@ -39,21 +39,23 @@ class Question {
 	}
 
 	public static factoryList(data: any): Question[] {
-		const questions: Question[] = []
+		const questions: Question[] = [];
 		data.results.map((res: any) => {
-			questions.push(new Question({
-				answer: res.answer,
-				categoryId: res.categoryID,
-				difficulty: getDifficulty(res.difficulty),
-				explaination: res.explanation,
-				id: res.id,
-				linkedIn: res.linkedIn,
-				options: res.options,
-				percentCorrect: res.percentCorrect,
-				ques: res.ques
-			}))
-		})
-		return questions
+			questions.push(
+				new Question({
+					answer: res.answer,
+					categoryId: res.categoryID,
+					difficulty: getDifficulty(res.difficulty),
+					explaination: res.explanation,
+					id: res.id,
+					linkedIn: res.linkedIn,
+					options: res.options,
+					percentCorrect: res.percentCorrect,
+					ques: res.ques,
+				})
+			);
+		});
+		return questions;
 	}
 
 	public toString(): string {

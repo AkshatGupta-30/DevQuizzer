@@ -21,11 +21,9 @@ const Questions = memo(() => {
 			<div className='details'>
 				<div className='name'>
 					<div className='number'>Q{currQ + 1}.</div>
-					<div
-						className='ques'
-						dangerouslySetInnerHTML={{
-							__html: questions[currQ].ques,
-						}}></div>
+					<div className='ques' style={{ whiteSpace: "pre" }}>
+						{questions[currQ].ques}
+					</div>
 				</div>
 				<div className='options'>
 					{questions[currQ].options.map((option: string, i: number) => (
