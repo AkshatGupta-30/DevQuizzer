@@ -93,14 +93,14 @@ const StartQuiz = memo(() => {
 });
 
 const Submit = memo(() => {
-	const { setCheckSubmit } = useContext(QuizzContext);
+	const { setCheckSubmit, setSubmit } = useContext(QuizzContext);
 
 	return (
 		<div className='submit-quiz'>
 			<div className='sure-label'>Are you sure you want to Submit?</div>
 			<div className='submit-box'>
 				<button className='cancel' onClick={() => setCheckSubmit(false)}>Cancel</button>
-				<button className='submit'>Submit</button>
+				<button className='submit' onClick={() => setSubmit(true)}>Submit</button>
 			</div>
 		</div>
 	);

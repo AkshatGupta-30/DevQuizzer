@@ -7,8 +7,8 @@ import handleAxiosError from "../helpers/AxiosError";
 
 interface ContextInterface {
 	category: Category;
-    questions: Question[];
-    setQuestions: Dispatch<SetStateAction<Question[]>>;
+	questions: Question[];
+	setQuestions: Dispatch<SetStateAction<Question[]>>;
 	currQ: number;
 	setCurrQ: Dispatch<SetStateAction<number>>;
 	myAns: number[];
@@ -20,12 +20,15 @@ interface ContextInterface {
 	setBankPage: Dispatch<SetStateAction<number>>;
 	checkSubmit: boolean;
 	setCheckSubmit: Dispatch<SetStateAction<boolean>>;
+	submit: boolean;
+	setSubmit: Dispatch<SetStateAction<boolean>>;
+	correct: boolean[]
 }
 
 const defaultState = {
 	category: Category.empty(),
-    questions: [],
-    setQuestions: () => {},
+	questions: [],
+	setQuestions: () => {},
 	currQ: -1,
 	setCurrQ: () => {},
 	myAns: [],
@@ -34,9 +37,12 @@ const defaultState = {
 	setStartQuiz: () => {},
 	bankLength: 20,
 	bankPage: 1,
-	setBankPage: () => { },
+	setBankPage: () => {},
 	checkSubmit: false,
-	setCheckSubmit: () => {}
+	setCheckSubmit: () => {},
+	submit: false,
+	setSubmit: () => { },
+	correct: []
 } as ContextInterface;
 
 export const QuizzContext = createContext(defaultState);
@@ -47,7 +53,9 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	const [myAns, setMyAns] = useState<number[]>(defaultState.myAns);
 	const [startQuiz, setStartQuiz] = useState<boolean>(defaultState.startQuiz);
 	const [bankPage, setBankPage] = useState<number>(defaultState.bankPage);
-	const [checkSubmit, setCheckSubmit] = useState<boolean>(defaultState.checkSubmit)
+	const [checkSubmit, setCheckSubmit] = useState<boolean>(defaultState.checkSubmit);
+	const [submit, setSubmit] = useState<boolean>(defaultState.submit);
+	const [correct, setCorrect] = useState<boolean[]>(defaultState.correct);
 	const bankLength: number = defaultState.bankLength;
 
 	useEffect(() => {
@@ -75,10 +83,24 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		fetchData();
 	}, [category]);
 
+	useEffect(() => {
+		if (submit) {
+			setCheckSubmit(false)
+			setCurrQ(0);
+			setCorrect((prev) => {
+				const updated = [...prev];
+				for (let i = 0; i < questions.length; i++) {
+					updated[i] = questions[i].answer === myAns[i]
+				}
+				return updated
+			})
+		}
+	}, [submit]);
+
 	const contextValue: ContextInterface = {
 		category,
-        questions,
-        setQuestions,
+		questions,
+		setQuestions,
 		currQ,
 		setCurrQ,
 		myAns,
@@ -89,7 +111,10 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		bankPage,
 		setBankPage,
 		checkSubmit,
-		setCheckSubmit
+		setCheckSubmit,
+		submit,
+		setSubmit,
+		correct
 	};
 	return <QuizzContext.Provider value={contextValue}>{children}</QuizzContext.Provider>;
 };

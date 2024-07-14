@@ -190,6 +190,13 @@
 			scale: 0.95;
 		}
 	}
+
+	.correct {
+		background: #5cdf3c;
+	}
+	.incorrect {
+		background: #ff3623;
+	}
 }
 
 @keyframes blinktext {

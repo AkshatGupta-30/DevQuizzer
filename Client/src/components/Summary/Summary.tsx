@@ -18,7 +18,7 @@ function getQuestionClass(status: QuestionStatus): string {
 }
 
 const AnswerStatus = () => {
-	const { startQuiz, questions, currQ, setCurrQ, checkSubmit } = useContext(QuizzContext);
+	const { startQuiz, questions, currQ, setCurrQ, checkSubmit, submit, correct } = useContext(QuizzContext);
 
 	const getStatusCount = (status: QuestionStatus): number =>
 		questions.filter((ques) => ques.questionStatus === status).length;
@@ -55,40 +55,56 @@ const AnswerStatus = () => {
 		<div className='answer-status'>
 			<h2>Answer Status</h2>
 			<div className='legends'>
-				<div className='legend'>
-					<div className={`color current`}>{currQ !== -1 ? currQ + 1 : null}</div>
-					<div className={"label"}>Current</div>
-				</div>
-				{Object.values(QuestionStatus).map((status, i) => (
-					<div className='legend' key={i}>
-						<div
-							className={`color ${getQuestionClass(status)}`}
-							style={{
-								cursor: startQuiz ? "pointer" : "none",
-								pointerEvents: startQuiz ? "all" : "none",
-							}}
-							onClick={() => {
-								const firstFind: number = getNextLegendStatus(status);
-								if (firstFind !== -1) {
-									setCurrQ(firstFind);
-								}
-							}}>
-							{getStatusCount(status as QuestionStatus)}
-						</div>
-						<div className={`label ${getLabelClass(status as QuestionStatus)}`}>{status}</div>
+				{!submit && (
+					<div className='legend'>
+						<div className={`color current`}>{currQ !== -1 ? currQ + 1 : null}</div>
+						<div className={"label"}>Current</div>
 					</div>
-				))}
+				)}
+				{!submit &&
+					Object.values(QuestionStatus).map((status, i) => (
+						<div className='legend' key={i}>
+							<div
+								className={`color ${getQuestionClass(status)}`}
+								style={{
+									cursor: startQuiz ? "pointer" : "none",
+									pointerEvents: startQuiz ? "all" : "none",
+								}}
+								onClick={() => {
+									const firstFind: number = getNextLegendStatus(status);
+									if (firstFind !== -1) {
+										setCurrQ(firstFind);
+									}
+								}}>
+								{getStatusCount(status as QuestionStatus)}
+							</div>
+							<div className={`label ${getLabelClass(status as QuestionStatus)}`}>{status}</div>
+						</div>
+					))}
+				{submit && (
+					<>
+						<div className='legend'>
+							<div className={`color correct`}>{correct.filter((corr) => corr).length}</div>
+							<div className={"label"}>Correct</div>
+						</div>
+						<div className='legend'>
+							<div className={`color incorrect`}>{correct.filter((corr) => !corr).length}</div>
+							<div className={"label"}>Incorrect</div>
+						</div>
+					</>
+				)}
 			</div>
 		</div>
 	);
 };
 
 const FixedBank = () => {
-	const { questions, currQ, setCurrQ } = useContext(QuizzContext);
+	const { questions, currQ, setCurrQ, submit, correct } = useContext(QuizzContext);
 
 	return (
 		<div className='numbers'>
 			{questions.map((ques: Question, i: number) => {
+				if (submit) return <li className={correct[i] ? "correct" : "incorrect"}>{i + 1}</li>;
 				return (
 					<li
 						key={i}
@@ -107,13 +123,15 @@ const FixedBank = () => {
 };
 
 const MoreBank = () => {
-	const { questions, currQ, setCurrQ, bankLength, bankPage, setBankPage } = useContext(QuizzContext);
+	const { questions, currQ, setCurrQ, bankLength, bankPage, setBankPage, submit, correct } = useContext(QuizzContext);
 
 	return (
 		<>
 			<div className='numbers blank-page'>
 				{Array.from({ length: bankLength }, (_, i) => {
 					const num = (bankPage - 1) * bankLength + i;
+					if (submit) return <li className={correct[num] ? "correct" : "incorrect"}>{num}</li>;
+
 					const quesStatus = questions[num]?.questionStatus;
 					return quesStatus ? (
 						<li
