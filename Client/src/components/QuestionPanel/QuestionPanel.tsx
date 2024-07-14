@@ -92,55 +92,75 @@ const StartQuiz = memo(() => {
 	);
 });
 
+const Submit = memo(() => {
+	const { setCheckSubmit } = useContext(QuizzContext);
+
+	return (
+		<div className='submit-quiz'>
+			<div className='sure-label'>Are you sure you want to Submit?</div>
+			<div className='submit-box'>
+				<button className='cancel' onClick={() => setCheckSubmit(false)}>Cancel</button>
+				<button className='submit'>Submit</button>
+			</div>
+		</div>
+	);
+});
+
 const FootWrapper = memo(() => {
-	const { currQ, setCurrQ, questions, bankPage, setBankPage, bankLength } = useContext(QuizzContext);
+	const { currQ, setCurrQ, questions, bankPage, setBankPage, bankLength, checkSubmit, setCheckSubmit } =
+		useContext(QuizzContext);
 
 	return (
 		<div className='foot-wrapper'>
-			{currQ ? (
+			{currQ && !checkSubmit ? (
 				<button
 					className='nav-btns'
 					onClick={() => {
-						if (currQ === (bankPage - 1) * bankLength) {
-							setBankPage(bankPage - 1);
+						if (!checkSubmit) {
+							if (currQ === (bankPage - 1) * bankLength) {
+								setBankPage(bankPage - 1);
+							}
+							setCurrQ(currQ - 1);
+						} else {
+							setCheckSubmit(false);
 						}
-						setCurrQ(currQ - 1);
 					}}>
 					<FontAwesomeIcon icon={faChevronLeft} />
-					Previous Question
+					{!checkSubmit ? "Previous Question" : "Back"}
 				</button>
 			) : (
 				<div></div>
 			)}
-			<div className='vr'></div>
-			{currQ != questions.length - 1 && (
-				<button
-					className='nav-btns'
-					onClick={() => {
+			{!checkSubmit && <button
+				className='nav-btns'
+				onClick={() => {
+					if (currQ < questions.length - 1) {
 						if (currQ + 1 === bankPage * bankLength) {
 							setBankPage(bankPage + 1);
 						}
 						setCurrQ(currQ + 1);
-					}}>
-					Next Question
-					<FontAwesomeIcon icon={faChevronRight} />
-				</button>
-			)}
+					} else {
+						setCheckSubmit(true);
+					}
+				}}>
+				{currQ < questions.length - 1 ? "Next Question" : "Submit"}
+				<FontAwesomeIcon icon={faChevronRight} />
+			</button>}
 		</div>
 	);
 });
 
 const QuestionPanel = memo(() => {
-	const { startQuiz } = useContext(QuizzContext);
+	const { startQuiz, checkSubmit } = useContext(QuizzContext);
 
 	return (
 		<div className='question-panel'>
 			<Watermark />
 			<HeadWrapper />
 			{!startQuiz && <StartQuiz />}
-			{startQuiz && <Questions />}
+			{startQuiz && !checkSubmit && <Questions />}
+			{checkSubmit && <Submit />}
 			{startQuiz && <FootWrapper />}
-			{/* <FootWrapper /> */}
 		</div>
 	);
 });

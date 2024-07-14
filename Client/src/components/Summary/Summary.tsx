@@ -18,7 +18,7 @@ function getQuestionClass(status: QuestionStatus): string {
 }
 
 const AnswerStatus = () => {
-	const { startQuiz, questions, currQ, setCurrQ } = useContext(QuizzContext);
+	const { startQuiz, questions, currQ, setCurrQ, checkSubmit } = useContext(QuizzContext);
 
 	const getStatusCount = (status: QuestionStatus): number =>
 		questions.filter((ques) => ques.questionStatus === status).length;
@@ -32,13 +32,32 @@ const AnswerStatus = () => {
 		return -1;
 	};
 
+	function getLabelClass(status: QuestionStatus): string | null {
+		if (checkSubmit) {
+			let count;
+			switch (status) {
+				case QuestionStatus.MarkForReview:
+					count = questions.filter(
+						(ques: Question) => ques.questionStatus === QuestionStatus.MarkForReview
+					).length;
+					return count ? "blink" : null;
+				case QuestionStatus.NotAnswered:
+					count = questions.filter(
+						(ques: Question) => ques.questionStatus === QuestionStatus.NotAnswered
+					).length;
+					return count ? "blink" : null;
+			}
+		}
+		return null;
+	}
+
 	return (
 		<div className='answer-status'>
 			<h2>Answer Status</h2>
 			<div className='legends'>
 				<div className='legend'>
 					<div className={`color current`}>{currQ !== -1 ? currQ + 1 : null}</div>
-					<label>Current</label>
+					<div className={"label"}>Current</div>
 				</div>
 				{Object.values(QuestionStatus).map((status, i) => (
 					<div className='legend' key={i}>
@@ -56,7 +75,7 @@ const AnswerStatus = () => {
 							}}>
 							{getStatusCount(status as QuestionStatus)}
 						</div>
-						<label>{status}</label>
+						<div className={`label ${getLabelClass(status as QuestionStatus)}`}>{status}</div>
 					</div>
 				))}
 			</div>

@@ -46,8 +46,12 @@
 					font: 600 1rem "Prompt", sans-serif;
 				}
 
-				label {
+				.label {
 					font: 600 1.15rem "Prompt", sans-serif;
+
+					&.blink {
+						animation: blinktext 2s linear infinite;
+					}
 				}
 			}
 		}
@@ -185,5 +189,11 @@
 		&:active {
 			scale: 0.95;
 		}
+	}
+}
+
+@keyframes blinktext {
+	50%{
+		color: #f00;
 	}
 }
