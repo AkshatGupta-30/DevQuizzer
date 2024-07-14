@@ -104,7 +104,7 @@ const FixedBank = () => {
 	return (
 		<div className='numbers'>
 			{questions.map((ques: Question, i: number) => {
-				if (submit) return <li className={correct[i] ? "correct" : "incorrect"}>{i + 1}</li>;
+				if (submit) return <li key={i} className={correct[i] ? "correct" : "incorrect"}>{i + 1}</li>;
 				return (
 					<li
 						key={i}

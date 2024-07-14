@@ -99,8 +99,12 @@ const Submit = memo(() => {
 		<div className='submit-quiz'>
 			<div className='sure-label'>Are you sure you want to Submit?</div>
 			<div className='submit-box'>
-				<button className='cancel' onClick={() => setCheckSubmit(false)}>Cancel</button>
-				<button className='submit' onClick={() => setSubmit(true)}>Submit</button>
+				<button className='cancel' onClick={() => setCheckSubmit(false)}>
+					Cancel
+				</button>
+				<button className='submit' onClick={() => setSubmit(true)}>
+					Submit
+				</button>
 			</div>
 		</div>
 	);
@@ -131,30 +135,32 @@ const FootWrapper = memo(() => {
 			) : (
 				<div></div>
 			)}
-			{!checkSubmit && <button
-				className='nav-btns'
-				onClick={() => {
-					if (currQ < questions.length - 1) {
-						if (currQ + 1 === bankPage * bankLength) {
-							setBankPage(bankPage + 1);
+			{!checkSubmit && (
+				<button
+					className='nav-btns'
+					onClick={() => {
+						if (currQ < questions.length - 1) {
+							if (currQ + 1 === bankPage * bankLength) {
+								setBankPage(bankPage + 1);
+							}
+							setCurrQ(currQ + 1);
+						} else {
+							setCheckSubmit(true);
 						}
-						setCurrQ(currQ + 1);
-					} else {
-						setCheckSubmit(true);
-					}
-				}}>
-				{currQ < questions.length - 1 ? "Next Question" : "Submit"}
-				<FontAwesomeIcon icon={faChevronRight} />
-			</button>}
+					}}>
+					{currQ < questions.length - 1 ? "Next Question" : "Submit"}
+					<FontAwesomeIcon icon={faChevronRight} />
+				</button>
+			)}
 		</div>
 	);
 });
 
 const QuestionPanel = memo(() => {
-	const { startQuiz, checkSubmit } = useContext(QuizzContext);
+	const { startQuiz, checkSubmit, currQ, correct } = useContext(QuizzContext);
 
 	return (
-		<div className='question-panel'>
+		<div className={`question-panel ${correct[currQ] ? "correct" : "incorrect"}`}>
 			<Watermark />
 			<HeadWrapper />
 			{!startQuiz && <StartQuiz />}

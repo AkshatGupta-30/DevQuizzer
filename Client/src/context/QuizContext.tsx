@@ -87,13 +87,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		if (submit) {
 			setCheckSubmit(false)
 			setCurrQ(0);
-			setCorrect((prev) => {
-				const updated = [...prev];
-				for (let i = 0; i < questions.length; i++) {
-					updated[i] = questions[i].answer === myAns[i]
-				}
-				return updated
-			})
+			setCorrect(questions.map((ques: Question, i: number) => ques.answer === myAns[i]));
 		}
 	}, [submit]);
 
