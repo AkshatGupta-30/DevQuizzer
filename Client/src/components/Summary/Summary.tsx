@@ -32,6 +32,15 @@ const AnswerStatus = () => {
 		return -1;
 	};
 
+	const getNextAnswerStatus = (status: boolean): number => {
+		let i = currQ + 1 === correct.length ? 0 : currQ + 1;
+		for (let len: number = correct.length; len > 0; i++, len--) {
+			if (i === correct.length) i = 0;
+			if (correct[i] === status) return i;
+		}
+		return -1;
+	};
+
 	function getLabelClass(status: QuestionStatus): string | null {
 		if (checkSubmit) {
 			let count;
@@ -71,9 +80,9 @@ const AnswerStatus = () => {
 									pointerEvents: startQuiz ? "all" : "none",
 								}}
 								onClick={() => {
-									const firstFind: number = getNextLegendStatus(status);
-									if (firstFind !== -1) {
-										setCurrQ(firstFind);
+									const nextFind: number = getNextLegendStatus(status);
+									if (nextFind !== -1) {
+										setCurrQ(nextFind);
 									}
 								}}>
 								{getStatusCount(status as QuestionStatus)}
@@ -83,11 +92,27 @@ const AnswerStatus = () => {
 					))}
 				{submit && (
 					<>
-						<div className='legend'>
+						<div
+							className='legend'
+							style={{ pointerEvents: correct.filter((cor) => cor).length === 0 ? "none" : "all" }}
+							onClick={() => {
+								const nextFind: number = getNextAnswerStatus(correct[currQ]);
+								if (nextFind !== -1) {
+									setCurrQ(nextFind);
+								}
+							}}>
 							<div className={`color correct`}>{correct.filter((corr) => corr).length}</div>
 							<div className={"label"}>Correct</div>
 						</div>
-						<div className='legend'>
+						<div
+							className='legend'
+							style={{ pointerEvents: correct.filter((cor) => cor).length === 0 ? "none" : "all" }}
+							onClick={() => {
+								const nextFind: number = getNextAnswerStatus(correct[currQ]);
+								if (nextFind !== -1) {
+									setCurrQ(nextFind);
+								}
+							}}>
 							<div className={`color incorrect`}>{correct.filter((corr) => !corr).length}</div>
 							<div className={"label"}>Incorrect</div>
 						</div>
@@ -106,7 +131,7 @@ const FixedBank = () => {
 			{questions.map((ques: Question, i: number) => {
 				if (submit)
 					return (
-						<li key={i} className={correct[i] ? "correct" : "incorrect"}>
+						<li key={i} className={correct[i] ? "correct" : "incorrect"} onClick={() => setCurrQ(i)}>
 							{i + 1}
 						</li>
 					);
@@ -123,9 +148,7 @@ const FixedBank = () => {
 					</li>
 				);
 			})}
-			{questions.length < 5 && Array.from({ length: 5 - questions.length }, (_, i) => (
-				<li key={i}></li>
-			))}
+			{questions.length < 5 && Array.from({ length: 5 - questions.length }, (_, i) => <li key={i}></li>)}
 		</div>
 	);
 };
