@@ -127,11 +127,11 @@ const Questions = memo(() => {
 						<span>Clear</span>
 					</button>
 				)}
-				<button type='button' className='report'>
+				{submit && <button type='button' className='report'>
 					{/* //TODO: Implement dialog box */}
 					<FlagFill />
 					<span>Report</span>
-				</button>
+				</button>}
 			</div>
 		</div>
 	);

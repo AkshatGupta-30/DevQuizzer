@@ -5,6 +5,7 @@ import "./QuestionPanel.scss";
 import Questions from "../Questions/Questions";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const Watermark = () => (
 	<div className='watermark-wrapper'>
@@ -115,8 +116,9 @@ const Submit = memo(() => {
 });
 
 const FootWrapper = memo(() => {
-	const { currQ, setCurrQ, questions, bankPage, setBankPage, bankLength, checkSubmit, setCheckSubmit } =
+	const { currQ, setCurrQ, questions, bankPage, setBankPage, bankLength, checkSubmit, setCheckSubmit, submit } =
 		useContext(QuizzContext);
+	const navigate = useNavigate();
 
 	return (
 		<div className='foot-wrapper'>
@@ -149,10 +151,13 @@ const FootWrapper = memo(() => {
 							}
 							setCurrQ(currQ + 1);
 						} else {
+							if (submit) {
+								navigate(-1);
+							}
 							setCheckSubmit(true);
 						}
 					}}>
-					{currQ < questions.length - 1 ? "Next Question" : "Submit"}
+					{currQ < questions.length - 1 ? "Next Question" : submit ? "Exit" : "Submit"}
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>
 			)}
@@ -161,10 +166,10 @@ const FootWrapper = memo(() => {
 });
 
 const QuestionPanel = memo(() => {
-	const { startQuiz, checkSubmit, currQ, correct } = useContext(QuizzContext);
+	const { startQuiz, checkSubmit, currQ, submit, correct } = useContext(QuizzContext);
 
 	return (
-		<div className={`question-panel ${correct[currQ] ? "correct" : "incorrect"}`}>
+		<div className={`question-panel ${submit ? (correct[currQ] ? "correct" : "incorrect") : null}`}>
 			<Watermark />
 			<HeadWrapper />
 			{!startQuiz && <StartQuiz />}
