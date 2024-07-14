@@ -48,6 +48,7 @@
 
 				.label {
 					font: 600 1.15rem "Prompt", sans-serif;
+					pointer-events: none;
 
 					&.blink {
 						animation: blinktext 2s linear infinite;
@@ -192,10 +193,10 @@
 	}
 
 	.correct {
-		background: #5cdf3c;
+		background: #31f625;
 	}
 	.incorrect {
-		background: #ff3623;
+		background: #ff5747;
 	}
 }
 
