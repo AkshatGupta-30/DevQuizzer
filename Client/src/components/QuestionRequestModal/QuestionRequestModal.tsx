@@ -21,12 +21,7 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 		<>
 			<div className='background' onClick={closeModal}></div>
 			<div id='ques-request'>
-				<button
-					type='button'
-					className='close-btn'
-					onClick={() => {
-						closeModal();
-					}}>
+				<button type='button' className='close-btn' onClick={closeModal}>
 					<FontAwesomeIcon icon={faXmark} className='icon' />
 				</button>
 				<h1>Add Question Request</h1>
@@ -136,7 +131,7 @@ const QuestionRequestModal = memo(({ closeModal }: { closeModal: () => void }) =
 							id='send'
 							onClick={async () => {
 								if (await submit()) {
-									closeModal()
+									closeModal();
 								}
 							}}>
 							Send

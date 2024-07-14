@@ -46,7 +46,7 @@ const CategorySection = memo(() => {
 					<div className='error'>{error}</div>
 					<button className='try-again' onClick={() => onMounted()}>
 						<FontAwesomeIcon icon={faArrowsRotate} className='refresh' />
-						Please Try Again
+						Try Again
 					</button>
 				</div>
 			)}
