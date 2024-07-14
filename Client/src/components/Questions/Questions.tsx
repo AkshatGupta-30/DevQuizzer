@@ -56,7 +56,8 @@ const Questions = memo(() => {
 								onClick={() => {
 									setMyAns((prevAns) => {
 										const updatedAns = [...prevAns];
-										if (updatedAns[currQ] === i) {
+										console.log(updatedAns[currQ])
+										if (updatedAns[currQ] === i+1) {
 											updatedAns[currQ] = -1;
 											questions[currQ].questionStatus = QuestionStatus.NotAnswered;
 										} else {
