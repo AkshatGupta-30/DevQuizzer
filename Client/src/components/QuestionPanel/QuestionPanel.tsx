@@ -18,7 +18,7 @@ const Watermark = () => (
 );
 
 const Timer = memo(() => {
-	const { startQuiz } = useContext(QuizzContext);
+	const { startQuiz, submit } = useContext(QuizzContext);
 	const [time, setTime] = useState<number>(0);
 
 	useEffect(() => {
@@ -27,6 +27,10 @@ const Timer = memo(() => {
 			let animationFrameId: number;
 
 			const updateTimer = () => {
+				if (submit) {
+					cancelAnimationFrame(animationFrameId);
+					return;
+				}
 				setTime(Date.now() - startTime);
 				animationFrameId = requestAnimationFrame(updateTimer);
 			};
@@ -37,7 +41,7 @@ const Timer = memo(() => {
 				cancelAnimationFrame(animationFrameId);
 			};
 		}
-	}, [startQuiz]);
+	}, [startQuiz, submit]);
 
 	const formattedTime: string = useMemo(() => {
 		const hours = String(Math.floor((time / 3600000) % 60)).padStart(2, "0");
@@ -48,7 +52,7 @@ const Timer = memo(() => {
 
 	return (
 		<div className='timer-wrapper'>
-			<div className='timer'>Timer&nbsp;-&nbsp;</div>
+			<div className='timer'>{submit ? "Time Taken" : "Timer"}&nbsp;-&nbsp;</div>
 			<div className='numbers'>
 				<span className='digits'>{formattedTime}</span>
 			</div>
