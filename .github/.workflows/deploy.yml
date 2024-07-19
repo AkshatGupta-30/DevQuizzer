@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Change directory
+        uses: cd Client
+
       - name: Checkout repo
         uses: actions/checkout@v2
 
@@ -38,6 +41,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
+      - name: Change directory
+        uses: cd Client
+
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
