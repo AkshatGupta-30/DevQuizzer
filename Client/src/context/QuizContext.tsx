@@ -67,13 +67,15 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 			return updatedAns;
 		});
 		const fetchData = async () => {
+			console.log(category.questions)
 			axios
 				.get("http://localhost:3001/ques/questions-by-ids", {
 					params: {
-						ids: category.questions,
+						ids: category.questions.join(","),
 					},
 				})
 				.then((response) => {
+					console.log(response)
 					setQuestions(Question.factoryList(response.data));
 				})
 				.catch((error: AxiosError) => {
