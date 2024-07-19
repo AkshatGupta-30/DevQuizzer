@@ -3,12 +3,15 @@ import Question from "../oops/models/Question";
 
 class QuestionApi {
 	public static async AddQuesRequest(question: Question): Promise<number> {
-		interface Response {status: number, message: string}
+		interface Response {
+			status: number;
+			message: string;
+		}
 		try {
 			const response: Response = await axios.request({
 				method: "post",
 				maxBodyLength: Infinity,
-				url: "http://localhost:3001/admin/ques-req",
+				url: "https://devquizzer.onrender.com/admin/ques-req",
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -17,7 +20,7 @@ class QuestionApi {
 			return response.status;
 		} catch (error) {
 			console.log(error);
-			return 500
+			return 500;
 		}
 	}
 }

@@ -22,7 +22,7 @@ interface ContextInterface {
 	setCheckSubmit: Dispatch<SetStateAction<boolean>>;
 	submit: boolean;
 	setSubmit: Dispatch<SetStateAction<boolean>>;
-	correct: boolean[]
+	correct: boolean[];
 }
 
 const defaultState = {
@@ -41,8 +41,8 @@ const defaultState = {
 	checkSubmit: false,
 	setCheckSubmit: () => {},
 	submit: false,
-	setSubmit: () => { },
-	correct: []
+	setSubmit: () => {},
+	correct: [],
 } as ContextInterface;
 
 export const QuizzContext = createContext(defaultState);
@@ -67,15 +67,15 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 			return updatedAns;
 		});
 		const fetchData = async () => {
-			console.log(category.questions)
+			console.log(category.questions);
 			axios
-				.get("http://localhost:3001/ques/questions-by-ids", {
+				.get("https://devquizzer.onrender.com/ques/questions-by-ids", {
 					params: {
 						ids: category.questions.join(","),
 					},
 				})
 				.then((response) => {
-					console.log(response)
+					console.log(response);
 					setQuestions(Question.factoryList(response.data));
 				})
 				.catch((error: AxiosError) => {
@@ -87,7 +87,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 
 	useEffect(() => {
 		if (submit) {
-			setCheckSubmit(false)
+			setCheckSubmit(false);
 			setCurrQ(0);
 			setCorrect(questions.map((ques: Question, i: number) => ques.answer === myAns[i]));
 		}
@@ -110,7 +110,7 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 		setCheckSubmit,
 		submit,
 		setSubmit,
-		correct
+		correct,
 	};
 	return <QuizzContext.Provider value={contextValue}>{children}</QuizzContext.Provider>;
 };

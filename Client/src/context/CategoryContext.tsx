@@ -27,23 +27,23 @@ export const CategoryContext = React.createContext(defaultState);
 
 const CategoryContextProvider = ({ children }: props) => {
 	const [categories, setCategories] = React.useState<Category[]>(defaultState.categories);
-	const [search, setSearch] = useState<string>("")
+	const [search, setSearch] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading);
 	const [error, setError] = useState<string>(defaultState.error);
 
 	const onMounted = async () => {
-		setIsLoading(true)
+		setIsLoading(true);
 		await axios
-			.get("http://localhost:3001/category")
+			.get("https://devquizzer.onrender.com/category")
 			.then((res: AxiosResponse) => {
 				const cats = Category.FactoryGetList(res.data);
 				setCategories(cats);
 				setIsLoading(false);
-				setError("")
+				setError("");
 			})
 			.catch((err: AxiosError) => {
 				setIsLoading(false);
-				setError(handleAxiosError(err))
+				setError(handleAxiosError(err));
 			});
 	};
 
