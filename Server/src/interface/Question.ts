@@ -13,7 +13,6 @@ interface IQuestion extends Document {
     answer: number;
     difficulty: 'easy' | 'medium' | 'hard';
     explanation: String;
-    percentCorrect: number;
     linkedIn: String;
 }
 

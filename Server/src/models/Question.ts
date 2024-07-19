@@ -10,7 +10,6 @@ const QuestionSchema = new Schema<IQuestion>({
 	answer: { type: Number, required: true },
 	difficulty: { type: String, enum: ["easy", "medium", "hard"], required: true },
 	explanation: { type: String, required: true },
-	percentCorrect: { type: Number, required: true },
 	linkedIn: { type: String, required: true },
 });
 
@@ -23,7 +22,6 @@ export async function FillQuestion(data: any) {
 		answer: data.answer,
 		difficulty: data.difficulty,
 		explanation: data.explanation,
-		percentCorrect: data.percentCorrect,
 		linkedIn: data.linkedIn,
 	});
 }

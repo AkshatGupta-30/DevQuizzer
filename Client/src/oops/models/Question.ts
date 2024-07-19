@@ -11,7 +11,6 @@ class Question {
 	answer: number;
 	difficulty: DifficultyType;
 	explanation: string;
-	percentCorrect: number;
 	linkedIn: string;
 	questionStatus: QuestionStatus;
 
@@ -23,7 +22,6 @@ class Question {
 		answer: number;
 		difficulty: DifficultyType;
 		explaination: string;
-		percentCorrect: number;
 		linkedIn: string;
 	}) {
 		this.id = params.id;
@@ -33,7 +31,6 @@ class Question {
 		this.answer = params.answer;
 		this.difficulty = params.difficulty;
 		this.explanation = params.explaination;
-		this.percentCorrect = params.percentCorrect;
 		this.linkedIn = params.linkedIn;
 		this.questionStatus = QuestionStatus.NotVisited;
 	}
@@ -50,7 +47,6 @@ class Question {
 					id: res.id,
 					linkedIn: res.linkedIn,
 					options: res.options,
-					percentCorrect: res.percentCorrect,
 					ques: res.ques,
 				})
 			);
@@ -66,7 +62,6 @@ class Question {
 			answer: this.answer,
 			explanation: this.explanation,
 			difficulty: this.difficulty.toString(),
-			percentCorrect: this.percentCorrect,
 			linkedIn: this.linkedIn,
 		});
 	}
@@ -80,7 +75,6 @@ class Question {
 			explaination: data.explaination,
 			linkedIn: data.linkedIn,
 			options: [data.option1, data.option2, data.option3, data.option4],
-			percentCorrect: 0,
 			ques: data.question,
 		});
 	}
@@ -94,7 +88,6 @@ class Question {
 			explaination: "",
 			linkedIn: "",
 			options: [],
-			percentCorrect: 0,
 			ques: "",
 		});
 	}
