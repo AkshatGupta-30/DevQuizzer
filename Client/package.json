@@ -2,14 +2,14 @@
 	"name": "devquizzer",
 	"private": true,
 	"version": "0.0.0",
-	"homepage": "https://akshatgupta-30.github.io/./",
+	"homepage": "https://akshatgupta-30.github.io/DevQuizzer",
 	"scripts": {
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"predeploy": "yarn build",
-		"deploy": "gh-pages -d build"
+		"eject": "react-scripts eject"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.24.7",
