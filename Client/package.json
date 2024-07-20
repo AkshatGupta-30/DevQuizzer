@@ -2,7 +2,7 @@
 	"name": "devquizzer",
 	"private": true,
 	"version": "0.0.0",
-	"homepage": "https://AkshatGupta-30.github.io/Devquizzers",
+	"homepage": "https://AkshatGupta-30.github.io",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
