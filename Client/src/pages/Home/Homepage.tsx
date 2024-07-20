@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {memo} from "react";
 import "./Homepage.scss";
 import CategoryContextProvider from "../../context/CategoryContext";

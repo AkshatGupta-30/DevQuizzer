@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useContext, useEffect } from "react";
 import { FlagFill, Star, StarFill, XCircleFill } from "react-bootstrap-icons";
 import "./Questions.scss";
@@ -52,11 +51,10 @@ const Questions = memo(() => {
 						{questions[currQ].options.map((option: string, i: number) => (
 							<div
 								key={i}
-								className={`option ${myAns[currQ] == i + 1 ? "selected" : null}`}
+								className={`option ${myAns[currQ] === i + 1 ? "selected" : null}`}
 								onClick={() => {
 									setMyAns((prevAns) => {
 										const updatedAns = [...prevAns];
-										console.log(updatedAns[currQ])
 										if (updatedAns[currQ] === i+1) {
 											updatedAns[currQ] = -1;
 											questions[currQ].questionStatus = QuestionStatus.NotAnswered;

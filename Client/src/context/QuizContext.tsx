@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Category from "../oops/models/Category";
 import axios, { AxiosError } from "axios";
@@ -61,13 +60,13 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 	useEffect(() => {
 		setMyAns((prevAns) => {
 			const updatedAns = [...prevAns];
-			category.questions.map((_, index: number) => {
+			category.questions.forEach((_, index: number) => {
 				updatedAns[index] = -1;
+
 			});
 			return updatedAns;
 		});
 		const fetchData = async () => {
-			console.log(category.questions);
 			axios
 				.get("https://devquizzer.onrender.com/ques/questions-by-ids", {
 					params: {
@@ -75,11 +74,10 @@ const QuizzContextProvider = ({ category, children }: { category: Category; chil
 					},
 				})
 				.then((response) => {
-					console.log(response);
 					setQuestions(Question.factoryList(response.data));
 				})
 				.catch((error: AxiosError) => {
-					console.log(handleAxiosError(error));
+					handleAxiosError(error)
 				});
 		};
 		fetchData();

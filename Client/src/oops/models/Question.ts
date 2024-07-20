@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { QuesReqContextInterface } from "../../context/QuestionRequestContext";
 import { QuestionStatus } from "../enum/QuestionStatus";
 import { DifficultyType, getDifficulty } from "../enum/Types";

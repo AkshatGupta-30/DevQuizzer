@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, memo, useContext, useEffect, useState } from "react";
 import {CategoryContext} from "../../context/CategoryContext";
 import { faArrowsRotate, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";

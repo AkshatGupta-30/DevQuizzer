@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, memo, useContext, useEffect, useMemo, useState } from "react";
 import { QuizzContext } from "../../context/QuizContext";
 import "./QuestionPanel.scss";

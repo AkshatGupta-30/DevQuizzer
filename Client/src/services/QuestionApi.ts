@@ -19,7 +19,6 @@ class QuestionApi {
 			});
 			return response.status;
 		} catch (error) {
-			console.log(error);
 			return 500;
 		}
 	}
